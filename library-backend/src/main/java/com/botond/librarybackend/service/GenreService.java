@@ -1,6 +1,7 @@
 package com.botond.librarybackend.service;
 
 import com.botond.librarybackend.entity.Genre;
+import com.botond.librarybackend.error.GenreAlreadyExistsException;
 import com.botond.librarybackend.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,12 @@ public class GenreService {
     }
 
     public void newGenre(Genre newGenre) {
+        List<Genre> genres = getAllGenres();
+        for(Genre genre : genres) {
+            if(genre.getName().equals(newGenre.getName())) {
+                throw new GenreAlreadyExistsException(newGenre.getName());
+            }
+        }
         genreRepository.save(newGenre);
     }
 }

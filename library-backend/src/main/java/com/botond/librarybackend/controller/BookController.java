@@ -21,6 +21,11 @@ public class BookController {
         return bookService.getAllBook();
     }
 
+    @GetMapping(path = "/{id}")
+    Book getById(@PathVariable Long id) {
+        return bookService.getBookById(id);
+    }
+
     @PostMapping("/newBook")
     @ResponseStatus(HttpStatus.CREATED)
     void newBook(@RequestBody Book newBook) {
@@ -41,4 +46,21 @@ public class BookController {
     void updateDescription(@PathVariable Long id, @RequestBody Map<String, String> update) {
         bookService.updateDescription(id, update.get("description"));
     }
+
+    @PatchMapping("/updateTitle/{id}")
+    void updateTitle(@PathVariable Long id, @RequestBody Map<String, String> update) {
+        bookService.updateTitle(id, update.get("title"));
+    }
+
+    @PatchMapping("/updateAuthor/{id}")
+    void updateAuthor(@PathVariable Long id, @RequestBody Map<String, String> update) {
+        bookService.updateAuthor(id, update.get("author"));
+    }
+
+    @PatchMapping("/updateAuthor/{id}")
+    void updateGenre(@PathVariable Long id, @RequestBody Map<String, Long> update) {
+        bookService.updateGenre(id, update.get("genre"));
+    }
+
+
 }

@@ -3,10 +3,10 @@ package com.botond.librarybackend.service;
 import com.botond.librarybackend.entity.Book;
 import com.botond.librarybackend.error.BookAlreadyExistsException;
 import com.botond.librarybackend.error.BookNotFoundException;
+import com.botond.librarybackend.error.QuantityMinimumReachedException;
 import com.botond.librarybackend.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +31,11 @@ public class BookService {
         bookRepository.save(newBook);
     }
 
+    public Book getBookById(Long Id) {
+        return bookRepository.findById(Id)
+                .orElseThrow(() -> new BookNotFoundException(Id));
+    }
+
     public void deleteBook(Long Id) {
         List<Book> books = getAllBook();
         for (Book book : books) {
@@ -43,6 +48,9 @@ public class BookService {
     }
 
     public void updateQuantity(Long Id, Long newQuantity) {
+        if (newQuantity < 0) {
+            throw new QuantityMinimumReachedException();
+        }
         bookRepository.findById(Id)
                 .map(x -> {
                     x.setQuantity(newQuantity);
@@ -58,5 +66,32 @@ public class BookService {
                     return bookRepository.save(x);
                 })
         .orElseThrow(() -> new BookNotFoundException(Id));
+    }
+
+    public void updateTitle(Long Id, String newTitle) {
+        bookRepository.findById(Id)
+                .map(x -> {
+                    x.setTitle(newTitle);
+                    return bookRepository.save(x);
+                })
+                .orElseThrow(() -> new BookNotFoundException(Id));
+    }
+
+    public void updateAuthor(Long Id, String newAuthor) {
+        bookRepository.findById(Id)
+                .map(x -> {
+                    x.setAuthor(newAuthor);
+                    return bookRepository.save(x);
+                })
+                .orElseThrow(() -> new BookNotFoundException(Id));
+    }
+
+    public void updateGenre(Long Id, Long newGenre) {
+        bookRepository.findById(Id)
+                .map(x -> {
+                    x.setGenreId(newGenre);
+                    return bookRepository.save(x);
+                })
+                .orElseThrow(() -> new BookNotFoundException(Id));
     }
 }

@@ -12,12 +12,42 @@ import java.io.IOException;
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BookAlreadyExistsException.class)
-    public void springHandleAlreadyExists(HttpServletResponse response) throws IOException {
+    public void springHandleBookAlreadyExists(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.METHOD_NOT_ALLOWED.value());
     }
 
     @ExceptionHandler(BookNotFoundException.class)
     public void springHandleNotFound(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.NOT_FOUND.value());
+    }
+
+    @ExceptionHandler(QuantityMinimumReachedException.class)
+    public void springHandleQuantityMinimum(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.METHOD_NOT_ALLOWED.value());
+    }
+
+    @ExceptionHandler(GenreAlreadyExistsException.class)
+    public void springHandleGenreAlreadyExists(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.METHOD_NOT_ALLOWED.value());
+    }
+
+    @ExceptionHandler(MemberNotFoundException.class)
+    public void springHandleMemberNotFound(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.NOT_FOUND.value());
+    }
+
+    @ExceptionHandler(MemberAlreadyExistsException.class)
+    public void springHandleMemberAlreadyExists(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.METHOD_NOT_ALLOWED.value());
+    }
+
+    @ExceptionHandler(BorrowNotAvailableException.class)
+    public void springHandleBorrowNotAllowed(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.METHOD_NOT_ALLOWED.value());
+    }
+
+    @ExceptionHandler(BorrowNotFoundException.class)
+    public void springHandleBorrowNotFound(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.NOT_FOUND.value());
     }
 }

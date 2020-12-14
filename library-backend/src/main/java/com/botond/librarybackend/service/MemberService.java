@@ -1,6 +1,8 @@
 package com.botond.librarybackend.service;
 
 import com.botond.librarybackend.entity.Member;
+import com.botond.librarybackend.error.MemberAlreadyExistsException;
+import com.botond.librarybackend.error.MemberNotFoundException;
 import com.botond.librarybackend.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,12 +25,37 @@ public class MemberService {
     }
 
     public void addMember(Member newMember) {
+        List<Member> members = getAllMember();
+        for(Member member : members) {
+            if(member.equals(newMember)) {
+                throw new MemberAlreadyExistsException(newMember.getId());
+            }
+        }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_PATTERN);
         newMember.setJoinDate(simpleDateFormat.format(new Date()));
         memberRepository.save(newMember);
     }
 
     public void deleteMember(Long Id) {
-        memberRepository.deleteById(Id);
+        List<Member> members = getAllMember();
+        for (Member member : members) {
+            if(member.getId().equals(Id)) {
+                memberRepository.deleteById(Id);
+                return;
+            }
+        }
+        throw new MemberNotFoundException(Id);
+    }
+
+    public void updateMember(Long Id, Member member) {
+        memberRepository.findById(Id)
+                .map(x -> {
+                    x.setName(member.getName());
+                    x.setAddress(member.getAddress());
+                    x.setEmail(member.getEmail());
+                    x.setDateOfBirth(member.getDateOfBirth());
+                    return memberRepository.save(x);
+                })
+                .orElseThrow(() -> new MemberNotFoundException(Id));
     }
 }

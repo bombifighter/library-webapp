@@ -1,6 +1,7 @@
 package com.botond.librarybackend.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "MEMBERS")
@@ -71,5 +72,13 @@ public class Member {
 
     public void setJoinDate(String joinDate) {
         this.joinDate = joinDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(name, member.name) && Objects.equals(dateOfBirth, member.dateOfBirth) && Objects.equals(address, member.address) && Objects.equals(email, member.email);
     }
 }
