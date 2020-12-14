@@ -1,0 +1,13 @@
+h2 {
+  text-align: center;
+  padding: 1em;
+  font-size: 4em;
+}
+
+td, tbody > tr > th{
+  vertical-align: middle;
+}
+
+.lasttd {
+  text-align: center;
+}

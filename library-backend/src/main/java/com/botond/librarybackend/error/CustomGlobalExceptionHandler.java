@@ -26,11 +26,6 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         response.sendError(HttpStatus.METHOD_NOT_ALLOWED.value());
     }
 
-    @ExceptionHandler(GenreAlreadyExistsException.class)
-    public void springHandleGenreAlreadyExists(HttpServletResponse response) throws IOException {
-        response.sendError(HttpStatus.METHOD_NOT_ALLOWED.value());
-    }
-
     @ExceptionHandler(MemberNotFoundException.class)
     public void springHandleMemberNotFound(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.NOT_FOUND.value());

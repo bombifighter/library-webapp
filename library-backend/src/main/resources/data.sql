@@ -1,18 +1,9 @@
 INSERT INTO BOOKS
-    (ISBN, title, author, genre_id, description, quantity)
+    (ISBN, title, author, genre, description, quantity)
 VALUES
-    ('0-7710-0868-6', 'Oryx and Crake', 'Margaret Atwood', 3, 'First book of the MaddAdam trilogy', 3),
-    ('978-0-7475-8516-9', 'The Year of the Flood', 'Margaret Atwood', 3, 'Second book of the MaddAdam trilogy', 1),
-    ('0-77100-846-5', 'MaddAdam', 'Margaret Atwood', 3, 'Third book of the MaddAdam trilogy', 4);
-
-INSERT INTO GENRES(name) VALUES
-('adventure'),
-('fantasy'),
-('fiction'),
-('history'),
-('horror'),
-('mistery'),
-('thrillers');
+    ('0-7710-0868-6', 'Oryx and Crake', 'Margaret Atwood', 'fiction', 'First book of the MaddAdam trilogy', 3),
+    ('978-0-7475-8516-9', 'The Year of the Flood', 'Margaret Atwood', 'fiction', 'Second book of the MaddAdam trilogy', 1),
+    ('0-77100-846-5', 'MaddAdam', 'Margaret Atwood', 'fiction', 'Third book of the MaddAdam trilogy', 4);
 
 INSERT INTO MEMBERS
 (name, dob, address, email, join_date)

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
@@ -37,6 +38,11 @@ public class BookController {
         bookService.deleteBook(id);
     }
 
+    @PutMapping("/update/{id}")
+    void updateProperties(@PathVariable Long id, @RequestBody Book modifiedBook) {
+        bookService.modifyBook(id, modifiedBook);
+    }
+
     @PatchMapping("/updateQuantity/{id}")
     void updateQuantity(@PathVariable Long id, @RequestBody Map<String, Long> update) {
         bookService.updateQuantity(id, update.get("quantity"));
@@ -57,8 +63,8 @@ public class BookController {
         bookService.updateAuthor(id, update.get("author"));
     }
 
-    @PatchMapping("/updateAuthor/{id}")
-    void updateGenre(@PathVariable Long id, @RequestBody Map<String, Long> update) {
+    @PatchMapping("/updateGenre/{id}")
+    void updateGenre(@PathVariable Long id, @RequestBody Map<String, String> update) {
         bookService.updateGenre(id, update.get("genre"));
     }
 

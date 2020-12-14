@@ -19,8 +19,8 @@ public class Book {
     @Column
     private String author;
 
-    @Column(name = "genre_id")
-    private Long genreId;
+    @Column
+    private String genre;
 
     @Column
     private String description;
@@ -60,12 +60,12 @@ public class Book {
         this.author = author;
     }
 
-    public Long getGenreId() {
-        return genreId;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setGenreId(Long genreId) {
-        this.genreId = genreId;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public String getDescription() {

@@ -1,0 +1,28 @@
+<app-menu></app-menu>
+<h2>Books</h2>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">ISBN</th>
+    <th scope="col">Title</th>
+    <th scope="col">Author</th>
+    <th scope="col">Genre</th>
+    <th scope="col">Description</th>
+    <th scope="col" class="lasttd">Quantity</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let book of books">
+    <th scope="row">{{book.id}}</th>
+    <td>{{book.isbn}}</td>
+    <td>{{book.title}}</td>
+    <td>{{book.author}}</td>
+    <td>{{book.genre}}</td>
+    <td>{{book.description}}</td>
+    <td class="lasttd">{{book.quantity}}</td>
+    <td><a href="modifybook/{{book.id}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Modify</a></td>
+  </tr>
+  </tbody>
+</table>

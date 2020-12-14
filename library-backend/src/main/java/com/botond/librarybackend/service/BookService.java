@@ -86,10 +86,27 @@ public class BookService {
                 .orElseThrow(() -> new BookNotFoundException(Id));
     }
 
-    public void updateGenre(Long Id, Long newGenre) {
+    public void updateGenre(Long Id, String newGenre) {
         bookRepository.findById(Id)
                 .map(x -> {
-                    x.setGenreId(newGenre);
+                    x.setGenre(newGenre);
+                    return bookRepository.save(x);
+                })
+                .orElseThrow(() -> new BookNotFoundException(Id));
+    }
+
+    public void modifyBook(Long Id, Book modifiedBook) {
+        if(modifiedBook.getQuantity() < 0) {
+            throw new QuantityMinimumReachedException();
+        }
+        bookRepository.findById(Id)
+                .map(x -> {
+                    x.setISBN(modifiedBook.getISBN());
+                    x.setTitle(modifiedBook.getTitle());
+                    x.setAuthor(modifiedBook.getAuthor());
+                    x.setGenre(modifiedBook.getGenre());
+                    x.setDescription(modifiedBook.getDescription());
+                    x.setQuantity(modifiedBook.getQuantity());
                     return bookRepository.save(x);
                 })
                 .orElseThrow(() -> new BookNotFoundException(Id));
