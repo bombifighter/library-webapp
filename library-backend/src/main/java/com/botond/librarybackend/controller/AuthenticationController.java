@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class AuthController {
+public class AuthenticationController {
 
     @GetMapping(path = "/basicauth")
     public AuthenticationBean helloWorldBean() {
