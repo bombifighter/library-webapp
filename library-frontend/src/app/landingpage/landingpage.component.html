@@ -1,2 +1,7 @@
-<app-menu></app-menu>
-<h1>Library Management</h1>
+<div *ngIf="loginService.isUserLoggedIn(); else elseBlock">
+  <app-menu></app-menu>
+  <h1>Library Management</h1>
+</div>
+<ng-template #elseBlock>
+  <app-notloggedin></app-notloggedin>
+</ng-template>

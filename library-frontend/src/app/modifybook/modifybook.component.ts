@@ -3,6 +3,7 @@ import {BooksService} from "../books.service";
 import {Book} from "../books/book";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ModifybookService} from "../modifybook.service";
+import {LoginService} from "../login.service";
 
 @Component({
   selector: 'app-modifybook',
@@ -11,12 +12,13 @@ import {ModifybookService} from "../modifybook.service";
 })
 export class ModifybookComponent implements OnInit {
 
-  book: Book;
+  book = new Book();
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private booksService: BooksService,
-              private modifyBookService: ModifybookService) { }
+              private modifyBookService: ModifybookService,
+              public loginService: LoginService) { }
 
   ngOnInit(): void {
     this.booksService.bookById(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe((result) => {
@@ -25,7 +27,9 @@ export class ModifybookComponent implements OnInit {
   }
 
   handleSave() {
-    this.modifyBookService.saveModification(this.book);
+    this.modifyBookService.saveModification(this.book).subscribe(() => {
+      this.router.navigate(['books']);
+    });
   }
 
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {BooksService} from "../books.service";
 import { Book } from "./book";
 import {ActivatedRoute, Router} from "@angular/router";
+import {LoginService} from "../login.service";
+import {DeletebookService} from "../deletebook.service";
 
 @Component({
   selector: 'app-books',
@@ -14,11 +16,19 @@ export class BooksComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private booksService: BooksService) { }
+              private booksService: BooksService,
+              public loginService: LoginService,
+              public deleteBookService: DeletebookService) { }
 
   ngOnInit(): void {
     this.booksService.bookService().subscribe((result) => {
       this.books = result;
+    });
+  }
+
+  handleDelete(id: number) {
+    this.deleteBookService.deleteBook(id).subscribe(() => {
+      this.ngOnInit()
     });
   }
 }

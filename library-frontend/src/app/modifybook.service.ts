@@ -12,9 +12,9 @@ export class ModifybookService {
   constructor(private http: HttpClient,
               private router: Router) { }
 
-  saveModification(book: Book): void {
+  saveModification(book: Book) {
     book.quantity = parseInt(book.quantity.toString());
     let link: string = 'http://localhost:8080/api/books/update/' + book.id;
-    this.http.put(link, JSON.stringify(book)).subscribe();
+    return this.http.put<Book>(link, book);
   }
 }

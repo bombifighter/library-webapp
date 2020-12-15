@@ -36,4 +36,11 @@ export class LoginService {
     let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
     return user !== null;
   }
+
+  logout() {
+    sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+    sessionStorage.removeItem("pw");
+    this.username = null;
+    this.password = null;
+  }
 }

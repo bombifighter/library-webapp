@@ -9,10 +9,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private loginService: LoginService) { }
 
   ngOnInit(): void {
 
+  }
+
+  handleLogout() {
+    this.loginService.logout();
   }
 
 }

@@ -59,42 +59,6 @@ public class BookService {
         .orElseThrow(() -> new BookNotFoundException(Id));
     }
 
-    public void updateDescription(Long Id, String newDesc) {
-        bookRepository.findById(Id)
-                .map(x -> {
-                    x.setDescription(newDesc);
-                    return bookRepository.save(x);
-                })
-        .orElseThrow(() -> new BookNotFoundException(Id));
-    }
-
-    public void updateTitle(Long Id, String newTitle) {
-        bookRepository.findById(Id)
-                .map(x -> {
-                    x.setTitle(newTitle);
-                    return bookRepository.save(x);
-                })
-                .orElseThrow(() -> new BookNotFoundException(Id));
-    }
-
-    public void updateAuthor(Long Id, String newAuthor) {
-        bookRepository.findById(Id)
-                .map(x -> {
-                    x.setAuthor(newAuthor);
-                    return bookRepository.save(x);
-                })
-                .orElseThrow(() -> new BookNotFoundException(Id));
-    }
-
-    public void updateGenre(Long Id, String newGenre) {
-        bookRepository.findById(Id)
-                .map(x -> {
-                    x.setGenre(newGenre);
-                    return bookRepository.save(x);
-                })
-                .orElseThrow(() -> new BookNotFoundException(Id));
-    }
-
     public void modifyBook(Long Id, Book modifiedBook) {
         if(modifiedBook.getQuantity() < 0) {
             throw new QuantityMinimumReachedException();

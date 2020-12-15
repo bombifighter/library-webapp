@@ -11,6 +11,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MenuComponent } from './menu/menu.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { ModifybookComponent } from './modifybook/modifybook.component';
+import { NotloggedinComponent } from './notloggedin/notloggedin.component';
+import { AddbookComponent } from './addbook/addbook.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { ModifybookComponent } from './modifybook/modifybook.component';
     LoginComponent,
     MenuComponent,
     LandingpageComponent,
-    ModifybookComponent
+    ModifybookComponent,
+    NotloggedinComponent,
+    AddbookComponent
   ],
   imports: [
     BrowserModule,

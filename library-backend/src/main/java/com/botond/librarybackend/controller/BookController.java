@@ -47,26 +47,4 @@ public class BookController {
     void updateQuantity(@PathVariable Long id, @RequestBody Map<String, Long> update) {
         bookService.updateQuantity(id, update.get("quantity"));
     }
-
-    @PatchMapping("/updateDescription/{id}")
-    void updateDescription(@PathVariable Long id, @RequestBody Map<String, String> update) {
-        bookService.updateDescription(id, update.get("description"));
-    }
-
-    @PatchMapping("/updateTitle/{id}")
-    void updateTitle(@PathVariable Long id, @RequestBody Map<String, String> update) {
-        bookService.updateTitle(id, update.get("title"));
-    }
-
-    @PatchMapping("/updateAuthor/{id}")
-    void updateAuthor(@PathVariable Long id, @RequestBody Map<String, String> update) {
-        bookService.updateAuthor(id, update.get("author"));
-    }
-
-    @PatchMapping("/updateGenre/{id}")
-    void updateGenre(@PathVariable Long id, @RequestBody Map<String, String> update) {
-        bookService.updateGenre(id, update.get("genre"));
-    }
-
-
 }

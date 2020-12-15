@@ -11,3 +11,21 @@ td, tbody > tr > th{
 .lasttd {
   text-align: center;
 }
+
+.delete {
+  padding-left: 0;
+}
+
+.modify {
+  text-align: right;
+}
+
+.add-button {
+  width: 100%;
+  text-align: right;
+  height: 4em;
+}
+
+.abutton {
+  margin: 0 2em;
+}
