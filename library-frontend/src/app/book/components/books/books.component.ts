@@ -4,6 +4,7 @@ import { Book } from "./book";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LoginService} from "../../../auth/services/login.service";
 import {DeletebookService} from "../../services/deletebook.service";
+import {newArray} from "@angular/compiler/src/util";
 
 @Component({
   selector: 'app-books',

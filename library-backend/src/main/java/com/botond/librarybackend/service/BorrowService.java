@@ -2,11 +2,11 @@ package com.botond.librarybackend.service;
 
 import com.botond.librarybackend.entity.Book;
 import com.botond.librarybackend.entity.Borrow;
-import com.botond.librarybackend.error.BookNotFoundException;
 import com.botond.librarybackend.error.BorrowNotAvailableException;
 import com.botond.librarybackend.error.BorrowNotFoundException;
 import com.botond.librarybackend.repository.BookRepository;
-import com.botond.librarybackend.repository.BorrowRepositoy;
+import com.botond.librarybackend.repository.BorrowRepository;
+import com.botond.librarybackend.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class BorrowService {
     public static final int BORROW_DAYS = 30;
 
     @Autowired
-    BorrowRepositoy borrowRepository;
+    BorrowRepository borrowRepository;
 
     @Autowired
     BookService bookService;
@@ -32,11 +32,18 @@ public class BorrowService {
     @Autowired
     BookRepository bookRepository;
 
+    @Autowired
+    MemberRepository memberRepository;
+
+    @Autowired
+    MemberService memberService;
+
     public List<Borrow> getAllBorrows() {
         return new ArrayList<>(borrowRepository.findAll());
     }
 
     public void newBorrow(Borrow newBorrow) {
+        memberService.getMemberById(newBorrow.getUserId());
         Book book = bookService.getBookById(newBorrow.getBookId());
         if(book.getQuantity().equals(0L)) {
             throw new BorrowNotAvailableException(book.getTitle());
@@ -44,9 +51,9 @@ public class BorrowService {
         bookRepository.findById(book.getId())
                 .map(x -> {
                     x.setQuantity(x.getQuantity()-1);
+                    x.setInborrow(x.getInborrow()+1);
                     return bookRepository.save(x);
                 });
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_PATTERN);
         newBorrow.setDate(simpleDateFormat.format(new Date()));
 
@@ -86,6 +93,7 @@ public class BorrowService {
             if(borrow.getId().equals(Id)) {
                 borrowRepository.deleteById(Id);
                 bookService.updateQuantityByOne(borrow.getBookId());
+                bookService.reduceInBorrow(borrow.getBookId());
                 return;
             }
         }

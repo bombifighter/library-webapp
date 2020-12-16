@@ -5,7 +5,8 @@ CREATE TABLE BOOKS (
     author VARCHAR(250) NOT NULL,
     genre VARCHAR(100) NOT NULL,
     description VARCHAR(500) NOT NULL,
-    quantity INT NOT NULL
+    quantity INT NOT NULL,
+    inborrow INT NOT NULL
 );
 CREATE TABLE MEMBERS (
     id INT AUTO_INCREMENT PRIMARY KEY,

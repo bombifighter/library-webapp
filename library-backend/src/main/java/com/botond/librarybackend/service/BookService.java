@@ -1,10 +1,13 @@
 package com.botond.librarybackend.service;
 
 import com.botond.librarybackend.entity.Book;
+import com.botond.librarybackend.entity.Borrow;
 import com.botond.librarybackend.error.BookAlreadyExistsException;
 import com.botond.librarybackend.error.BookNotFoundException;
+import com.botond.librarybackend.error.BooksInBorrowException;
 import com.botond.librarybackend.error.QuantityMinimumReachedException;
 import com.botond.librarybackend.repository.BookRepository;
+import com.botond.librarybackend.repository.BorrowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,9 @@ public class BookService {
 
     @Autowired
     BookRepository bookRepository;
+
+    @Autowired
+    BorrowRepository borrowRepository;
 
     public List<Book> getAllBook() {
         return new ArrayList<>(bookRepository.findAll());
@@ -31,6 +37,7 @@ public class BookService {
                 throw new BookAlreadyExistsException(newBook.getISBN());
             }
         }
+        newBook.setInborrow(0L);
         bookRepository.save(newBook);
     }
 
@@ -40,9 +47,15 @@ public class BookService {
     }
 
     public void deleteBook(Long Id) {
-        List<Book> books = getAllBook();
+        List<Book> books = new ArrayList<Book>(bookRepository.findAll());
         for (Book book : books) {
             if(book.getId().equals(Id)) {
+                List<Borrow> borrows = new ArrayList<Borrow>(borrowRepository.findAll());
+                for (Borrow borrow : borrows) {
+                    if(Id.equals(borrow.getBookId())) {
+                        throw new BooksInBorrowException(Id);
+                    }
+                }
                 bookRepository.deleteById(Id);
                 return;
             }
@@ -66,6 +79,15 @@ public class BookService {
         bookRepository.findById(Id)
                 .map(x -> {
                     x.setQuantity(x.getQuantity() + 1);
+                    return bookRepository.save(x);
+                })
+                .orElseThrow(() -> new BookNotFoundException(Id));
+    }
+
+    public void reduceInBorrow(Long Id) {
+        bookRepository.findById(Id)
+                .map(x -> {
+                    x.setInborrow(x.getInborrow()-1);
                     return bookRepository.save(x);
                 })
                 .orElseThrow(() -> new BookNotFoundException(Id));

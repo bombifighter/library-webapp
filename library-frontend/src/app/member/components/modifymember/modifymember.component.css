@@ -23,3 +23,9 @@ h2 {
 a {
   margin-top: 3em;
 }
+
+fieldset {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

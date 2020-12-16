@@ -8,7 +8,7 @@
     </div>
     <div class="input-group flex-nowrap">
       <span class="input-group-text" id="addon-wrapping">Birthdate</span>
-      <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="member.dateOfBirth">
+      <input type="date" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="member.dateOfBirth">
     </div>
     <div class="input-group flex-nowrap">
       <span class="input-group-text" id="addon-wrapping">Address</span>
@@ -16,12 +16,14 @@
     </div>
     <div class="input-group flex-nowrap">
       <span class="input-group-text" id="addon-wrapping">Email</span>
-      <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="member.email">
+      <input type="email" class="form-control" aria-describedby="addon-wrapping"  [(ngModel)]="member.email">
     </div>
-    <div class="input-group flex-nowrap">
-      <span class="input-group-text" id="addon-wrapping">Join Date</span>
-      <input type="text" class="form-control" aria-describedby="addon-wrapping" [value]="member.joinDate" [readonly]=true>
-    </div>
+    <fieldset disabled>
+      <div class="input-group flex-nowrap">
+        <span class="input-group-text" id="addon-wrapping">Join Date</span>
+        <input type="date" class="form-control" aria-describedby="addon-wrapping" [value]="member.joinDate">
+      </div>
+    </fieldset>
     <a (click)=handleSave() class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Save</a>
   </div>
 </div>

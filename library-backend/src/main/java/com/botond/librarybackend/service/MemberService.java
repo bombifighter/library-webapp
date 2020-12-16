@@ -1,6 +1,7 @@
 package com.botond.librarybackend.service;
 
 import com.botond.librarybackend.entity.Book;
+import com.botond.librarybackend.entity.Borrow;
 import com.botond.librarybackend.entity.Member;
 import com.botond.librarybackend.error.BookNotFoundException;
 import com.botond.librarybackend.error.MemberAlreadyExistsException;
@@ -21,6 +22,9 @@ public class MemberService {
 
     @Autowired
     MemberRepository memberRepository;
+
+    @Autowired
+    BorrowService borrowService;
 
     public List<Member> getAllMember() {
         return new ArrayList<>(memberRepository.findAll());
@@ -48,6 +52,12 @@ public class MemberService {
         for (Member member : members) {
             if(member.getId().equals(Id)) {
                 memberRepository.deleteById(Id);
+                List<Borrow> borrows = borrowService.getAllBorrows();
+                for (Borrow borrow : borrows) {
+                    if(Id.equals(borrow.getUserId())) {
+                        borrowService.deleteBorrow(borrow.getId());
+                    }
+                }
                 return;
             }
         }

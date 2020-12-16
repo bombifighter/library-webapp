@@ -6,6 +6,7 @@ export class Book {
   description: string;
   quantity: number;
   isbn: string;
+  inborrow: number
 
   constructor() {
     this.id = null;
@@ -15,5 +16,6 @@ export class Book {
     this.description = null;
     this.quantity = null;
     this.isbn = null;
+    this.inborrow = null;
   }
 }

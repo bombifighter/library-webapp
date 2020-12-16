@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from "../../../auth/services/login.service";
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',

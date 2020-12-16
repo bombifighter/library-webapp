@@ -45,4 +45,9 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     public void springHandleBorrowNotFound(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.NOT_FOUND.value());
     }
+
+    @ExceptionHandler(BooksInBorrowException.class)
+    public void springHandleBooksInBorrow(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.METHOD_NOT_ALLOWED.value());
+    }
 }

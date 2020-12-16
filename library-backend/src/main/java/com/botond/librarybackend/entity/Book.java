@@ -28,6 +28,9 @@ public class Book {
     @Column
     private Long quantity;
 
+    @Column
+    private Long inborrow;
+
     public Long getId() {
         return id;
     }
@@ -82,5 +85,13 @@ public class Book {
 
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
+    }
+
+    public Long getInborrow() {
+        return inborrow;
+    }
+
+    public void setInborrow(Long inborrow) {
+        this.inborrow = inborrow;
     }
 }

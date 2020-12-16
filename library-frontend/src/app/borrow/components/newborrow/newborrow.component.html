@@ -3,12 +3,18 @@
   <h2>New Borrow</h2>
   <div class="mycontainer">
     <div class="input-group flex-nowrap">
-      <span class="input-group-text" id="addon-wrapping">Member ID</span>
-      <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="borrow.userId">
+      <span class="input-group-text" id="addon-wrapping">Member</span>
+      <input class="form-control" aria-describedby="addon-wrapping" list="datalistOptions" id="exampleDataList" placeholder="Type to search members..." [(ngModel)]="selectedMember">
+      <datalist id="datalistOptions">
+        <option *ngFor="let member of members">{{member.id}}, {{member.name}}</option>
+      </datalist>
     </div>
     <div class="input-group flex-nowrap">
-      <span class="input-group-text" id="addon-wrapping">Book ID</span>
-      <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="borrow.bookId">
+      <span class="input-group-text" id="addon-wrapping">Book</span>
+      <input class="form-control" aria-describedby="addon-wrapping" list="datalistOptions2" id="exampleDataList2" placeholder="Type to search books..." [(ngModel)]="selectedBook">
+      <datalist id="datalistOptions2">
+        <option *ngFor="let book of books">{{book.id}}, {{book.title}}</option>
+      </datalist>
     </div>
     <a (click)=handleSave() class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Save</a>
   </div>
