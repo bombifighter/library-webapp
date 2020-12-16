@@ -19,6 +19,7 @@ import { ModifymemberComponent } from './member/components/modifymember/modifyme
 import { BorrowsComponent } from './borrow/components/borrows/borrows.component';
 import { NewborrowComponent } from './borrow/components/newborrow/newborrow.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

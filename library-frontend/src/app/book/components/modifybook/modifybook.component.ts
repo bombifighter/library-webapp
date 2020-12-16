@@ -21,14 +21,19 @@ export class ModifybookComponent implements OnInit {
               public loginService: LoginService) { }
 
   ngOnInit(): void {
-    this.booksService.bookById(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe((result) => {
+    this.modifyBookService.bookById(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe((result) => {
       this.book = result;
+    }, error => {
+      window.alert("Book not found in the database");
+      this.router.navigate(['/books']);
     });
   }
 
   handleSave() {
     this.modifyBookService.saveModification(this.book).subscribe(() => {
       this.router.navigate(['books']);
+    }, error => {
+      window.alert("Quantity cannot be lower than 0")
     });
   }
 
