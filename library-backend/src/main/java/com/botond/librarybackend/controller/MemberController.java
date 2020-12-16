@@ -1,5 +1,6 @@
 package com.botond.librarybackend.controller;
 
+import com.botond.librarybackend.entity.Book;
 import com.botond.librarybackend.entity.Member;
 import com.botond.librarybackend.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,11 @@ public class MemberController {
     @GetMapping(path = "/getAllMembers")
     List<Member> fetchMembers() {
         return memberService.getAllMember();
+    }
+
+    @GetMapping(path = "/{id}")
+    Member getById(@PathVariable Long id) {
+        return memberService.getMemberById(id);
     }
 
     @PostMapping("/newMember")

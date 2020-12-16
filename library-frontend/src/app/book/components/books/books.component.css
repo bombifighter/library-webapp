@@ -1,0 +1,42 @@
+h2 {
+  text-align: center;
+  padding: 1em;
+  font-size: 4em;
+}
+
+td, tbody > tr > th{
+  vertical-align: middle;
+}
+
+.lasttd {
+  text-align: center;
+}
+
+.delete {
+  padding-left: 0;
+}
+
+.modify {
+  text-align: right;
+}
+
+.add-button {
+  width: 100%;
+  text-align: right;
+  height: 4em;
+}
+
+.abutton {
+  margin: 0 2em;
+}
+
+.nodata {
+  width: 100%;
+  padding: 3em;
+  text-align: center;
+}
+
+.nodata > a {
+  font-size: 1.5em;
+}
+

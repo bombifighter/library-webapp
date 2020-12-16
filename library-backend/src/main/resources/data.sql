@@ -8,7 +8,7 @@ VALUES
 INSERT INTO MEMBERS
 (name, dob, address, email, join_date)
 VALUES
-('Lapos Elemér', '1998-01-01', '1000 Budapest Hosszú út 8', 'lapos.elemer@protonmail.com', '2020-12-14');
+('Lapos Elemer', '1998-01-01', '1000 Budapest, Hosszu ut 8.', 'lapos.elemer@protonmail.com', '2020-12-14');
 
 INSERT INTO BORROWS
 (user_id, book_id, date, end_date)

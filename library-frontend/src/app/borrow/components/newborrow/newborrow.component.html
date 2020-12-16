@@ -1,0 +1,18 @@
+<div *ngIf="loginService.isUserLoggedIn(); else elseBlock">
+  <app-menu></app-menu>
+  <h2>New Borrow</h2>
+  <div class="mycontainer">
+    <div class="input-group flex-nowrap">
+      <span class="input-group-text" id="addon-wrapping">Member ID</span>
+      <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="borrow.userId">
+    </div>
+    <div class="input-group flex-nowrap">
+      <span class="input-group-text" id="addon-wrapping">Book ID</span>
+      <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="borrow.bookId">
+    </div>
+    <a (click)=handleSave() class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Save</a>
+  </div>
+</div>
+<ng-template #elseBlock>
+  <app-notloggedin></app-notloggedin>
+</ng-template>

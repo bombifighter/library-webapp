@@ -37,7 +37,7 @@ public class BorrowService {
     }
 
     public void newBorrow(Borrow newBorrow) {
-        Book book = bookService.getBookById(newBorrow.getId());
+        Book book = bookService.getBookById(newBorrow.getBookId());
         if(book.getQuantity().equals(0L)) {
             throw new BorrowNotAvailableException(book.getTitle());
         }
@@ -84,7 +84,7 @@ public class BorrowService {
         List<Borrow> borrows = getAllBorrows();
         for (Borrow borrow : borrows) {
             if(borrow.getId().equals(Id)) {
-                bookRepository.deleteById(Id);
+                borrowRepository.deleteById(Id);
                 return;
             }
         }

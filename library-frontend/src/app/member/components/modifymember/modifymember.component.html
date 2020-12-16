@@ -1,0 +1,30 @@
+<div *ngIf="loginService.isUserLoggedIn(); else elseBlock">
+  <app-menu></app-menu>
+  <h2>Modify Member</h2>
+  <div class="mycontainer">
+    <div class="input-group flex-nowrap">
+      <span class="input-group-text" id="addon-wrapping">Name</span>
+      <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="member.name">
+    </div>
+    <div class="input-group flex-nowrap">
+      <span class="input-group-text" id="addon-wrapping">Birthdate</span>
+      <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="member.dateOfBirth">
+    </div>
+    <div class="input-group flex-nowrap">
+      <span class="input-group-text" id="addon-wrapping">Address</span>
+      <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="member.address">
+    </div>
+    <div class="input-group flex-nowrap">
+      <span class="input-group-text" id="addon-wrapping">Email</span>
+      <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="member.email">
+    </div>
+    <div class="input-group flex-nowrap">
+      <span class="input-group-text" id="addon-wrapping">Join Date</span>
+      <input type="text" class="form-control" aria-describedby="addon-wrapping" [value]="member.joinDate" [readonly]=true>
+    </div>
+    <a (click)=handleSave() class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Save</a>
+  </div>
+</div>
+<ng-template #elseBlock>
+  <app-notloggedin></app-notloggedin>
+</ng-template>

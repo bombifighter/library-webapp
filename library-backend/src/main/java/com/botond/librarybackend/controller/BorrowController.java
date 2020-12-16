@@ -24,7 +24,6 @@ public class BorrowController {
     @PostMapping("/newBorrow")
     @ResponseStatus(HttpStatus.CREATED)
     void newBorrow(@RequestBody Borrow newBorrow) {
-        System.out.println(newBorrow.getBookId());
         borrowService.newBorrow(newBorrow);
     }
 

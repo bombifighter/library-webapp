@@ -22,6 +22,9 @@ public class BookService {
     }
 
     public void addBook(Book newBook) {
+        if (newBook.getQuantity() < 0) {
+            throw new QuantityMinimumReachedException();
+        }
         List<Book> books = getAllBook();
         for (Book book : books) {
             if(newBook.getISBN().equals(book.getISBN())) {
