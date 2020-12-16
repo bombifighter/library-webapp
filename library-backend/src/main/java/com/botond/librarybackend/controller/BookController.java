@@ -47,4 +47,9 @@ public class BookController {
     void updateQuantity(@PathVariable Long id, @RequestBody Map<String, Long> update) {
         bookService.updateQuantity(id, update.get("quantity"));
     }
+
+    @PatchMapping("/updateQuantityByOne/{id}")
+    void updateQuantity(@PathVariable Long id) {
+        bookService.updateQuantityByOne(id);
+    }
 }

@@ -85,6 +85,7 @@ public class BorrowService {
         for (Borrow borrow : borrows) {
             if(borrow.getId().equals(Id)) {
                 borrowRepository.deleteById(Id);
+                bookService.updateQuantityByOne(borrow.getBookId());
                 return;
             }
         }

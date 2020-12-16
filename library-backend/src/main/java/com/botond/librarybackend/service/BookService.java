@@ -62,6 +62,15 @@ public class BookService {
         .orElseThrow(() -> new BookNotFoundException(Id));
     }
 
+    public void updateQuantityByOne(Long Id) {
+        bookRepository.findById(Id)
+                .map(x -> {
+                    x.setQuantity(x.getQuantity() + 1);
+                    return bookRepository.save(x);
+                })
+                .orElseThrow(() -> new BookNotFoundException(Id));
+    }
+
     public void modifyBook(Long Id, Book modifiedBook) {
         if(modifiedBook.getQuantity() < 0) {
             throw new QuantityMinimumReachedException();
