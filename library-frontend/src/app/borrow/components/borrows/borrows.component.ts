@@ -8,6 +8,7 @@ import {Member} from "../../../member/components/members/member";
 import {Book} from "../../../book/components/books/book";
 import {MembersService} from "../../../member/services/members.service";
 import {BooksService} from "../../../book/services/books.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-borrows',
@@ -42,14 +43,56 @@ export class BorrowsComponent implements OnInit {
     });
   }
 
+  requestConfirmDelete(id: number) {
+    Swal.fire({
+      title: `Are you sure to delete borrow with id:${id} ?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.handleDelete(id);
+      }
+    })
+  }
+
+  requestConfirmExtend(id: number) {
+    Swal.fire({
+      title: `Are you sure to extend borrow with id:${id} ?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Extend',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.handleExtend(id);
+      }
+    })
+  }
+
   handleDelete(id: number) {
     this.deleteBorrowService.deleteBorrow(id).subscribe(() => {
+      Swal.fire(
+        'Deleted!',
+        'Borrow has been deleted.',
+        'success'
+      )
       this.ngOnInit();
     });
   }
 
   handleExtend(id: number) {
     this.borrowsService.extendByOneMonth(id).subscribe(() => {
+      Swal.fire(
+        'Extended!',
+        'Borrow has been extended.',
+        'success'
+      )
       this.ngOnInit();
     })
   }

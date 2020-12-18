@@ -24,6 +24,7 @@
     "bootstrap": "^5.0.0-beta1",
     "bootstrap-icons": "^1.2.1",
     "rxjs": "~6.6.0",
+    "sweetalert2": "^10.12.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },

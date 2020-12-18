@@ -17,25 +17,47 @@ export class ModifybookService {
   bookById(id: number): Observable<Book> {
     return this.http.get<Book>('http://localhost:8080/api/books/'+id)
       .pipe(
-        catchError(this.handleError)
+        catchError(this.handleErrorNoBook)
       );
   }
 
   saveModification(book: Book) {
+    if(this.isThereEmptyField(book)) {
+      return this.handleErrorEmptyField(Error);
+    }
+    if(isNaN(book.quantity)) {
+      return this.handleErrorQuantityIsNaN(Error);
+    }
+    if(book.quantity < 0) {
+      return this.handleErrorNegativeQuantity(Error);
+    }
     book.quantity = parseInt(book.quantity.toString());
-    return this.http.put<Book>('http://localhost:8080/api/books/update/' + book.id, book)
-      .pipe(
-        catchError(this.handleError2)
-      );
+    return this.http.put<Book>('http://localhost:8080/api/books/update/' + book.id, book);
   }
 
-  handleError(error) {
+  handleErrorNoBook(error) {
     let errorMessage = `Error Code: ${error.status}\nBook not found in the database`;
     return throwError(errorMessage);
   }
 
-  handleError2(error) {
-    let errorMessage = `Error Code: ${error.status}\nQuantity cannot be lower than 0`;
+  isThereEmptyField(book: Book){
+    return book.title === null || book.isbn === null || book.quantity === null || book.description === null
+      || book.author === null || book.genre === null || book.title == "" || book.isbn == "" || book.description == ""
+      || book.author == "" || book.genre == "";
+  }
+
+  handleErrorEmptyField(error) {
+    let errorMessage = "emptyFieldError";
+    return throwError(errorMessage);
+  }
+
+  handleErrorNegativeQuantity(error) {
+    let errorMessage = "negativeQuantityError";
+    return throwError(errorMessage);
+  }
+
+  handleErrorQuantityIsNaN(error) {
+    let errorMessage = "QuantityIsNaNError";
     return throwError(errorMessage);
   }
 }

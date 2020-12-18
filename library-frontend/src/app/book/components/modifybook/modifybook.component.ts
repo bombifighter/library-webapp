@@ -4,6 +4,7 @@ import {Book} from "../books/book";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ModifybookService} from "../../services/modifybook.service";
 import {LoginService} from "../../../auth/services/login.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-modifybook',
@@ -24,16 +25,57 @@ export class ModifybookComponent implements OnInit {
     this.modifyBookService.bookById(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe((result) => {
       this.book = result;
     }, error => {
-      window.alert("Book not found in the database");
+      Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Book not found in the database.'
+    });
       this.router.navigate(['/books']);
     });
   }
 
   handleSave() {
     this.modifyBookService.saveModification(this.book).subscribe(() => {
+      Swal.fire(
+        'Modified!',
+        'Book has been successfully modified.',
+        'success'
+      )
       this.router.navigate(['books']);
     }, error => {
-      window.alert("Quantity cannot be lower than 0")
+      switch (error) {
+        case "emptyFieldError": {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Empty fields not allowed'
+          });
+          break;
+        }
+        case "negativeQuantityError": {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Quantity cannot be lower than 0'
+          });
+         break;
+        }
+        case "QuantityIsNaNError": {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Quantity must be a number'
+          });
+          break;
+        }
+        default: {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong'
+          });
+        }
+      }
     });
   }
 

@@ -34,7 +34,7 @@
       <td>{{book.description}}</td>
       <td class="lasttd">{{book.quantity}} (In borrow: {{book.inborrow}})</td>
       <td class="modify"><a href="modifybook/{{book.id}}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Modify</a></td>
-      <td class="delete"><a (click)=handleDelete(book.id) class="btn btn-danger btn-sm active" role="button" aria-pressed="true">Delete</a></td>
+      <td class="delete"><a (click)=requestConfirm(book.id) class="btn btn-danger btn-sm active" role="button" aria-pressed="true">Delete</a></td>
     </tr>
     </tbody>
   </table>

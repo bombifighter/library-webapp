@@ -4,6 +4,7 @@ import {AddbookService} from "../../../book/services/addbook.service";
 import {Router} from "@angular/router";
 import {LoginService} from "../../../auth/services/login.service";
 import {AddmemberService} from "../../services/addmember.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-addmember',
@@ -23,7 +24,38 @@ export class AddmemberComponent implements OnInit {
 
   handleSave() {
     this.addMemberService.saveMember(this.member).subscribe(() => {
+      Swal.fire(
+        'Added!',
+        'New member has been added.',
+        'success'
+      )
       this.router.navigate(['members'])
+    }, error => {
+      switch (error) {
+        case "emptyFieldError": {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Empty fields not allowed!'
+          });
+          break;
+        }
+        case "invalidEmailError": {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Invalid email!'
+          });
+          break;
+        }
+        default:{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong.'
+          });
+        }
+      }
     });
   }
 

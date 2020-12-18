@@ -4,7 +4,8 @@ import { Book } from "./book";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LoginService} from "../../../auth/services/login.service";
 import {DeletebookService} from "../../services/deletebook.service";
-import {newArray} from "@angular/compiler/src/util";
+import Swal from 'sweetalert2'
+import {catchError} from "rxjs/operators";
 
 @Component({
   selector: 'app-books',
@@ -27,9 +28,36 @@ export class BooksComponent implements OnInit {
     });
   }
 
+  requestConfirm(id: number) {
+    Swal.fire({
+      title: `Are you sure to delete book with id:${id} ?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.handleDelete(id);
+      }
+    })
+  }
+
   handleDelete(id: number) {
     this.deleteBookService.deleteBook(id).subscribe(() => {
-      this.ngOnInit()
+      Swal.fire(
+        'Deleted!',
+        'Book has been deleted.',
+        'success'
+      )
+      this.ngOnInit();
+    },error => {
+      if(error == "cannotDeleteError") {
+        Swal.fire("Book cannot be deleted as it has active borrow(s)")
+      } else {
+        Swal.fire(error);
+      }
     });
   }
 }
