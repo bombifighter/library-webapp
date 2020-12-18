@@ -6,12 +6,17 @@ VALUES
     ('0-77100-846-5', 'MaddAdam', 'Margaret Atwood', 'fiction', 'Third book of the MaddAdam trilogy', 4, 0);
 
 INSERT INTO MEMBERS
-(name, dob, address, email, join_date)
+(username, name, dob, address, email, join_date)
 VALUES
-('Lapos Elemer', '1998-01-01', '1000 Budapest, Hosszu ut 8.', 'lapos.elemer@protonmail.com', '2020-12-14');
+('elike98','Lapos Elemer', '1998-01-01', '1000 Budapest, Hosszu ut 8.', 'lapos.elemer@protonmail.com', '2020-12-14');
 
 INSERT INTO BORROWS
 (user_id, book_id, date, end_date)
 VALUES
 (1,2,'2020-12-14','2021-01-13'),
 (1,2,'2020-01-01','2020-01-31');
+
+INSERT INTO CREDS
+(user_id, password)
+VALUES
+(1, 'biztonsaglvl100');

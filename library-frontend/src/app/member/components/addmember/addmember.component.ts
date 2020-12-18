@@ -14,6 +14,8 @@ import Swal from "sweetalert2";
 export class AddmemberComponent implements OnInit {
 
   member = new Member();
+  password: string = null;
+  show: boolean = false;
 
   constructor(private addMemberService: AddmemberService,
               private router: Router,
@@ -23,7 +25,7 @@ export class AddmemberComponent implements OnInit {
   }
 
   handleSave() {
-    this.addMemberService.saveMember(this.member).subscribe(() => {
+    this.addMemberService.saveMember(this.member, this.password).subscribe(() => {
       Swal.fire(
         'Added!',
         'New member has been added.',
@@ -57,6 +59,10 @@ export class AddmemberComponent implements OnInit {
         }
       }
     });
+  }
+
+  togglePassword() {
+    this.show = !this.show;
   }
 
 }

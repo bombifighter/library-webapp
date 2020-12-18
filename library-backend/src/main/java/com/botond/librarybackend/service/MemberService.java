@@ -2,10 +2,12 @@ package com.botond.librarybackend.service;
 
 import com.botond.librarybackend.entity.Book;
 import com.botond.librarybackend.entity.Borrow;
+import com.botond.librarybackend.entity.Credential;
 import com.botond.librarybackend.entity.Member;
 import com.botond.librarybackend.error.BookNotFoundException;
 import com.botond.librarybackend.error.MemberAlreadyExistsException;
 import com.botond.librarybackend.error.MemberNotFoundException;
+import com.botond.librarybackend.error.UserNameNotUniqueException;
 import com.botond.librarybackend.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,9 @@ public class MemberService {
     @Autowired
     BorrowService borrowService;
 
+    @Autowired
+    CredentialService credentialService;
+
     public List<Member> getAllMember() {
         return new ArrayList<>(memberRepository.findAll());
     }
@@ -35,16 +40,20 @@ public class MemberService {
                 .orElseThrow(() -> new MemberNotFoundException(Id));
     }
 
-    public void addMember(Member newMember) {
+    public void addMember(Member newMember, String password) {
         List<Member> members = getAllMember();
         for(Member member : members) {
-            if(member.equals(newMember)) {
-                throw new MemberAlreadyExistsException(newMember.getId());
+            if(member.getUsername().equals(newMember.getUsername())) {
+                throw new UserNameNotUniqueException(newMember.getUsername());
             }
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_PATTERN);
         newMember.setJoinDate(simpleDateFormat.format(new Date()));
         memberRepository.save(newMember);
+        Credential newCredential = new Credential();
+        newCredential.setUserId(newMember.getId());
+        newCredential.setPassword(password);
+        credentialService.addCredential(newCredential);
     }
 
     public void deleteMember(Long Id) {
@@ -52,6 +61,7 @@ public class MemberService {
         for (Member member : members) {
             if(member.getId().equals(Id)) {
                 memberRepository.deleteById(Id);
+                credentialService.deleteCredential(Id);
                 List<Borrow> borrows = borrowService.getAllBorrows();
                 for (Borrow borrow : borrows) {
                     if(Id.equals(borrow.getUserId())) {
@@ -67,6 +77,7 @@ public class MemberService {
     public void updateMember(Long Id, Member member) {
         memberRepository.findById(Id)
                 .map(x -> {
+                    x.setUsername(member.getUsername());
                     x.setName(member.getName());
                     x.setAddress(member.getAddress());
                     x.setEmail(member.getEmail());

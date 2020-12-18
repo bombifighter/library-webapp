@@ -1,5 +1,6 @@
 export class Member {
   id: number;
+  username: string;
   name: string;
   dateOfBirth: string;
   address: string;
@@ -8,6 +9,7 @@ export class Member {
 
   constructor() {
     this.id = null;
+    this.username = null;
     this.name = null;
     this.dateOfBirth = null;
     this.address = null;

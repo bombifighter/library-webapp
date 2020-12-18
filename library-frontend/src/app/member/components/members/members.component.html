@@ -15,6 +15,7 @@
         <thead>
         <tr>
           <th scope="col">Member ID</th>
+          <th scope="col">Username</th>
           <th scope="col">Name</th>
           <th scope="col">Birthdate</th>
           <th scope="col">Address</th>
@@ -27,6 +28,7 @@
         <tbody>
         <tr *ngFor="let member of members">
           <th scope="row">{{member.id}}</th>
+          <td>{{member.username}}</td>
           <td>{{member.name}}</td>
           <td>{{member.dateOfBirth}}</td>
           <td>{{member.address}}</td>

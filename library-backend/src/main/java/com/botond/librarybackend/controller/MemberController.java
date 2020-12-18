@@ -2,6 +2,7 @@ package com.botond.librarybackend.controller;
 
 import com.botond.librarybackend.entity.Book;
 import com.botond.librarybackend.entity.Member;
+import com.botond.librarybackend.entity.RequestWrapper;
 import com.botond.librarybackend.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,8 +30,8 @@ public class MemberController {
 
     @PostMapping("/newMember")
     @ResponseStatus(HttpStatus.CREATED)
-    void newMember(@RequestBody Member newMember) {
-        memberService.addMember(newMember);
+    void newMember(@RequestBody RequestWrapper requestWrapper) {
+        memberService.addMember(requestWrapper.getMember(), requestWrapper.getPassword());
     }
 
     @DeleteMapping("/delete/{id}")

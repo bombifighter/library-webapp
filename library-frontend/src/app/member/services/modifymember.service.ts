@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {Member} from "../components/members/member";
 import {throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
+import {PasswordWrapper} from "../components/members/PasswordWrapper";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,10 @@ export class ModifymemberService {
       );
   }
 
+  passwordById(id: number) {
+    return this.http.get<any>('http://localhost:8080/api/credentials/'+id);
+  }
+
   saveModification(member: Member) {
     if(this.isThereEmptyField(member)) {
       return this.handleErrorEmptyField(Error);
@@ -28,6 +33,13 @@ export class ModifymemberService {
       return this.handleErrorInvalidEmail(Error);
     }
     return this.http.put<Member>("http://localhost:8080/api/members/update/" + member.id, member);
+  }
+
+  savePassword(id: number, password: string) {
+    if(this.isPasswordEmpty(password)) {
+      return this.handleErrorPasswordEmpty(Error);
+    }
+    return this.http.put<PasswordWrapper>("http://localhost:8080/api/credentials/update/" + id, new PasswordWrapper(password))
   }
 
   handleErrorNoMember(error) {
@@ -44,8 +56,17 @@ export class ModifymemberService {
     return new RegExp("[a-zA-Z0-9_\.\+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-\.]+").test(email);
   }
 
+  isPasswordEmpty(password: string) {
+    return password === null || password == "";
+  }
+
   handleErrorEmptyField(error) {
     let errorMessage = "emptyFieldError";
+    return throwError(errorMessage);
+  }
+
+  handleErrorPasswordEmpty(error) {
+    let errorMessage = "emptyPasswordError";
     return throwError(errorMessage);
   }
 

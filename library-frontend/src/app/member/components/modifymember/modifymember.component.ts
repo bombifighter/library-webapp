@@ -14,6 +14,8 @@ import Swal from "sweetalert2";
 export class ModifymemberComponent implements OnInit {
 
   member = new Member();
+  password: string = null;
+  show: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -24,6 +26,9 @@ export class ModifymemberComponent implements OnInit {
   ngOnInit(): void {
     this.modifyMemberService.memberById(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe((result) => {
       this.member = result;
+      this.modifyMemberService.passwordById(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe((result) => {
+        this.password = result["password"];
+      })
     }, error => {
       Swal.fire({
         icon: 'error',
@@ -64,11 +69,45 @@ export class ModifymemberComponent implements OnInit {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Something went wrong.'
+            text: 'Username already exists.'
           });
         }
       }
     });
+  }
+
+  handlePasswordSave() {
+    console.log(this.password)
+    this.modifyMemberService.savePassword(this.member.id, this.password).subscribe( () => {
+      Swal.fire(
+        'Password Modified!',
+        'Password has been successfully modified.',
+        'success'
+      )
+      this.router.navigate(['members']);
+    }, error => {
+      switch (error) {
+        case "emptyPasswordError": {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Password field is empty!'
+          });
+          break;
+        }
+        default:{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong.'
+          });
+        }
+      }
+    })
+  }
+
+  togglePassword() {
+    this.show = !this.show;
   }
 
 }
