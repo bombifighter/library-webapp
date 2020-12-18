@@ -1,44 +1,46 @@
 <div *ngIf="loginService.isUserLoggedIn(); else elseBlock">
   <app-menu></app-menu>
   <h2>Books</h2>
-  <div class="add-button">
-    <a href="addbook" class="btn btn-warning btn-lg active abutton" role="button" aria-pressed="true">&#43; Add book</a>
-  </div>
-  <div *ngIf="books.length === 0; else elseBlockinner">
-    <div class="nodata">
-      <a>There are no books in the database.</a>
+  <div *ngIf="books">
+    <div class="add-button">
+      <a href="addbook" class="btn btn-warning btn-lg active abutton" role="button" aria-pressed="true">&#43; Add book</a>
     </div>
+    <div *ngIf="books.length === 0; else elseBlockinner">
+      <div class="nodata">
+        <a>There are no books in the database.</a>
+      </div>
+    </div>
+    <ng-template #elseBlockinner>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Book ID</th>
+          <th scope="col">ISBN</th>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Genre</th>
+          <th scope="col">Description</th>
+          <th scope="col" class="lasttd">Quantity</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let book of books">
+          <th scope="row">{{book.id}}</th>
+          <td>{{book.isbn}}</td>
+          <td>{{book.title}}</td>
+          <td>{{book.author}}</td>
+          <td>{{book.genre}}</td>
+          <td>{{book.description}}</td>
+          <td class="lasttd">{{book.quantity}} (In borrow: {{book.inborrow}})</td>
+          <td class="modify"><a href="modifybook/{{book.id}}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Modify</a></td>
+          <td class="delete"><a (click)=requestConfirm(book.id) class="btn btn-danger btn-sm active" role="button" aria-pressed="true">Delete</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </ng-template>
   </div>
-  <ng-template #elseBlockinner>
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th scope="col">Book ID</th>
-      <th scope="col">ISBN</th>
-      <th scope="col">Title</th>
-      <th scope="col">Author</th>
-      <th scope="col">Genre</th>
-      <th scope="col">Description</th>
-      <th scope="col" class="lasttd">Quantity</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let book of books">
-      <th scope="row">{{book.id}}</th>
-      <td>{{book.isbn}}</td>
-      <td>{{book.title}}</td>
-      <td>{{book.author}}</td>
-      <td>{{book.genre}}</td>
-      <td>{{book.description}}</td>
-      <td class="lasttd">{{book.quantity}} (In borrow: {{book.inborrow}})</td>
-      <td class="modify"><a href="modifybook/{{book.id}}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Modify</a></td>
-      <td class="delete"><a (click)=requestConfirm(book.id) class="btn btn-danger btn-sm active" role="button" aria-pressed="true">Delete</a></td>
-    </tr>
-    </tbody>
-  </table>
-  </ng-template>
 </div>
 <ng-template #elseBlock>
   <app-notloggedin></app-notloggedin>

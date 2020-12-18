@@ -1,44 +1,46 @@
 <div *ngIf="loginService.isUserLoggedIn(); else elseBlock">
   <app-menu></app-menu>
   <h2>Borrows</h2>
-  <div class="add-button">
-    <a href="newborrow" class="btn btn-warning btn-lg active abutton" role="button" aria-pressed="true">&#43; New Borrow</a>
-  </div>
-  <div *ngIf="borrows.length == 0; else elseBlockinner">
-    <div class="nodata">
-      <a>There are no borrows in the database.</a>
+  <div *ngIf="borrows && members.length != 0 && books.length != 0">
+    <div class="add-button">
+      <a href="newborrow" class="btn btn-warning btn-lg active abutton" role="button" aria-pressed="true">&#43; New Borrow</a>
     </div>
+    <div *ngIf="borrows.length == 0; else elseBlockinner">
+      <div class="nodata">
+        <a>There are no borrows in the database.</a>
+      </div>
+    </div>
+    <ng-template #elseBlockinner>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Borrow ID</th>
+          <th scope="col">Member ID</th>
+          <th scope="col">Member Name</th>
+          <th scope="col">Book ID</th>
+          <th scope="col">Book Title</th>
+          <th scope="col">Date</th>
+          <th scope="col">End Date</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of [].constructor(borrows.length); let i = index">
+          <th scope="row">{{borrows[i].id}}</th>
+          <td>{{borrows[i].userId}}</td>
+          <td>{{members[i].name}}</td>
+          <td>{{borrows[i].bookId}}</td>
+          <td>{{books[i].title}}</td>
+          <td>{{borrows[i].date}}</td>
+          <td>{{borrows[i].endDate}}<a *ngIf="isOverdue(borrows[i].endDate)" title="Borrow Overdue!">&#9888;</a></td>
+          <td class="extend"><a (click)=requestConfirmExtend(borrows[i].id) class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Extend by 30 days</a></td>
+          <td class="delete"><a (click)=requestConfirmDelete(borrows[i].id) class="btn btn-danger btn-sm active" role="button" aria-pressed="true">Delete</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </ng-template>
   </div>
-  <ng-template #elseBlockinner>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th scope="col">Borrow ID</th>
-        <th scope="col">Member ID</th>
-        <th scope="col">Member Name</th>
-        <th scope="col">Book ID</th>
-        <th scope="col">Book Title</th>
-        <th scope="col">Date</th>
-        <th scope="col">End Date</th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of [].constructor(borrows.length); let i = index">
-        <th scope="row">{{borrows[i].id}}</th>
-        <td>{{borrows[i].userId}}</td>
-        <td>{{members[i].name}}</td>
-        <td>{{borrows[i].bookId}}</td>
-        <td>{{books[i].title}}</td>
-        <td>{{borrows[i].date}}</td>
-        <td>{{borrows[i].endDate}}<a *ngIf="isOverdue(borrows[i].endDate)" title="Borrow Overdue!">&#9888;</a></td>
-        <td class="extend"><a (click)=requestConfirmExtend(borrows[i].id) class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Extend by 30 days</a></td>
-        <td class="delete"><a (click)=requestConfirmDelete(borrows[i].id) class="btn btn-danger btn-sm active" role="button" aria-pressed="true">Delete</a></td>
-      </tr>
-      </tbody>
-    </table>
-  </ng-template>
 </div>
 <ng-template #elseBlock>
   <app-notloggedin></app-notloggedin>

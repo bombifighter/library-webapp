@@ -1,5 +1,35 @@
 h1 {
   font-size: 3em;
-  padding-top: 5em;
+  padding-top: 3em;
+  padding-bottom: 3em;
   text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+a {
+  width: 15em;
+  height: 15em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100em;
+  background-color: #212529;
+  border: none;
+}
+
+p {
+  font-size: 2em;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+a:hover {
+  background-color: #5F5F5F;
 }
