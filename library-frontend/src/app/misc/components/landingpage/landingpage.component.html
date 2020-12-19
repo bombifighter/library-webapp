@@ -1,11 +1,18 @@
 <div *ngIf="loginService.isUserLoggedIn(); else elseBlock">
   <app-menu></app-menu>
   <h1>Library Management</h1>
-  <div class="container">
+  <div class="container" *ngIf="username == 'admin'; else buttonElseBlock">
     <a class="btn btn-primary" id="books" href="books" role="button"><p>Books</p></a>
     <a class="btn btn-primary" id="members" href="members" role="button"><p>Members</p></a>
     <a class="btn btn-primary" id="borrows" href="borrows" role="button"><p>Borrows</p></a>
   </div>
+  <ng-template #buttonElseBlock>
+    <div class="container">
+      <a class="btn btn-primary" id="member" href="members" role="button"><p>Profile</p></a>
+      <a class="btn btn-primary" id="books" href="books" role="button"><p>Books</p></a>
+      <a class="btn btn-primary" id="myborrows" href="borrows" role="button"><p>My borrows</p></a>
+    </div>
+  </ng-template>
 </div>
 <ng-template #elseBlock>
   <app-notloggedin></app-notloggedin>

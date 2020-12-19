@@ -32,6 +32,9 @@ export class ModifymemberService {
     if(!this.isValidEmail(member.email)) {
       return this.handleErrorInvalidEmail(Error);
     }
+    if(member.username == "admin") {
+      return this.handleErrorUsernameUnavailable(Error);
+    }
     return this.http.put<Member>("http://localhost:8080/api/members/update/" + member.id, member);
   }
 
@@ -72,6 +75,11 @@ export class ModifymemberService {
 
   handleErrorInvalidEmail(error) {
     let errorMessage = "invalidEmailError";
+    return throwError(errorMessage);
+  }
+
+  handleErrorUsernameUnavailable(error) {
+    let errorMessage = "unavailableUsernameError"
     return throwError(errorMessage);
   }
 }

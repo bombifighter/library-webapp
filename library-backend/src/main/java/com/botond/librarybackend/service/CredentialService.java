@@ -7,7 +7,10 @@ import com.botond.librarybackend.error.CredentialNotFoundException;
 import com.botond.librarybackend.error.MemberAlreadyExistsException;
 import com.botond.librarybackend.error.MemberNotFoundException;
 import com.botond.librarybackend.repository.CredentialRepository;
+import com.botond.librarybackend.security.User;
+import com.botond.librarybackend.security.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -18,7 +21,16 @@ import java.util.List;
 public class CredentialService {
 
     @Autowired
+    MemberService memberService;
+
+    @Autowired
     CredentialRepository credentialRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public Credential getMemberCredential(Long memberId) {
         return credentialRepository.findById(memberId)
@@ -32,6 +44,7 @@ public class CredentialService {
     public void deleteCredential(Long userId) {
         if(credentialRepository.existsById(userId)) {
             credentialRepository.deleteById(userId);
+            userRepository.deleteById(userId+1);
         } else {
             throw new CredentialNotFoundException(userId);
         }
@@ -44,6 +57,8 @@ public class CredentialService {
                     return credentialRepository.save(x);
                 })
                 .orElseThrow(() -> new CredentialNotFoundException(userId));
+        User user = userRepository.findByUsername(memberService.getMemberById(userId).getUsername()).get();
+        user.setPassword(passwordEncoder.encode(password));
     }
 
 }

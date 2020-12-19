@@ -9,7 +9,12 @@ import com.botond.librarybackend.error.MemberAlreadyExistsException;
 import com.botond.librarybackend.error.MemberNotFoundException;
 import com.botond.librarybackend.error.UserNameNotUniqueException;
 import com.botond.librarybackend.repository.MemberRepository;
+import com.botond.librarybackend.security.Role;
+import com.botond.librarybackend.security.User;
+import com.botond.librarybackend.security.UserRepository;
+import com.botond.librarybackend.security.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -30,6 +35,15 @@ public class MemberService {
 
     @Autowired
     CredentialService credentialService;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<Member> getAllMember() {
         return new ArrayList<>(memberRepository.findAll());
@@ -54,6 +68,11 @@ public class MemberService {
         newCredential.setUserId(newMember.getId());
         newCredential.setPassword(password);
         credentialService.addCredential(newCredential);
+        User user = new User();
+        user.setUsername(newMember.getUsername());
+        user.setPassword(passwordEncoder.encode(password));
+        user.setAuthority(Role.ROLE_USER);
+        userRepository.save(user);
     }
 
     public void deleteMember(Long Id) {

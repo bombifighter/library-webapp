@@ -1,13 +1,22 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav" style="width: 100%">
+      <div class="navbar-nav" style="width: 100%" *ngIf="username == 'admin'; else userElseBlock">
         <a class="nav-link active home" aria-current="page" href="landingpage">Home</a>
         <a class="nav-link books" href="books">Books</a>
         <a class="nav-link members" href="members">Members</a>
         <a class="nav-link borrows" href="borrows">Borrows</a>
         <a class="nav-link logout" (click)=handleLogout() href="login">Logout</a>
       </div>
+      <ng-template #userElseBlock>
+        <div class="navbar-nav" style="width: 100%">
+          <a class="nav-link active home" aria-current="page" href="landingpage">Home</a>
+          <a class="nav-link books" href="myprofile">Profile</a>
+          <a class="nav-link members" href="books">Books</a>
+          <a class="nav-link borrows" href="myborrows">My Borrows</a>
+          <a class="nav-link logout" (click)=handleLogout() href="login">Logout</a>
+        </div>
+      </ng-template>
     </div>
   </div>
 </nav>

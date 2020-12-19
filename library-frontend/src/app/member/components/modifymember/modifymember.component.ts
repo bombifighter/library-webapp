@@ -57,6 +57,14 @@ export class ModifymemberComponent implements OnInit {
           });
           break;
         }
+        case "unavailableUsernameError": {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Username 'admin' is not available!"
+          });
+          break;
+        }
         case "invalidEmailError": {
           Swal.fire({
             icon: 'error',
@@ -92,6 +100,14 @@ export class ModifymemberComponent implements OnInit {
             icon: 'error',
             title: 'Oops...',
             text: 'Password field is empty!'
+          });
+          break;
+        }
+        case "unavailableUsernameError": {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Username 'admin' is not available!"
           });
           break;
         }

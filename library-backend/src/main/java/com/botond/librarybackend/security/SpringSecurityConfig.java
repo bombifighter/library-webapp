@@ -34,6 +34,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().cors()
                 .and().authorizeRequests()
                 .antMatchers("/api/basicauth").permitAll()
+                .antMatchers("/api/books/getAllBooks").permitAll()
                 .antMatchers("/**").hasRole("ADMIN")
                 .and().httpBasic();
     }

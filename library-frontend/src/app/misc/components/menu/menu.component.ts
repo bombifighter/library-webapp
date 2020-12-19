@@ -8,10 +8,12 @@ import { LoginService } from "../../../auth/services/login.service";
 })
 export class MenuComponent implements OnInit {
 
+  username: string
+
   constructor(private loginService: LoginService) { }
 
   ngOnInit(): void {
-
+    this.username = sessionStorage.getItem('authenticatedUser');
   }
 
   handleLogout() {

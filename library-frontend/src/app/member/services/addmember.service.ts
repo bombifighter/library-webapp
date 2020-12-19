@@ -18,6 +18,9 @@ export class AddmemberService {
     if(!this.isValidEmail(member.email)) {
       return this.handleErrorInvalidEmail(Error);
     }
+    if(member.username == "admin") {
+      return this.handleErrorUsernameUnavailable(Error);
+    }
     return this.http.post<Member>('http://localhost:8080/api/members/newMember', new CredWrapper(member, password));
   }
 
@@ -38,6 +41,11 @@ export class AddmemberService {
 
   handleErrorInvalidEmail(error) {
     let errorMessage = "invalidEmailError";
+    return throwError(errorMessage);
+  }
+
+  handleErrorUsernameUnavailable(error) {
+    let errorMessage = "unavailableUsernameError"
     return throwError(errorMessage);
   }
 }

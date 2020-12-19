@@ -50,6 +50,14 @@ export class AddmemberComponent implements OnInit {
           });
           break;
         }
+        case "unavailableUsernameError": {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Username 'admin' is not available!"
+          });
+          break;
+        }
         default:{
           Swal.fire({
             icon: 'error',

@@ -9,10 +9,12 @@ import {LoginService} from "../../../auth/services/login.service";
 })
 export class LandingpageComponent implements OnInit {
 
+  username: string;
+
   constructor(public loginService: LoginService) { }
 
   ngOnInit(): void {
-
+    this.username = sessionStorage.getItem('authenticatedUser');
   }
 
 }

@@ -15,6 +15,7 @@ import {catchError} from "rxjs/operators";
 export class BooksComponent implements OnInit {
 
   books: Book[];
+  username: string;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -23,6 +24,7 @@ export class BooksComponent implements OnInit {
               public deleteBookService: DeletebookService) { }
 
   ngOnInit(): void {
+    this.username = sessionStorage.getItem('authenticatedUser');
     this.booksService.bookService().subscribe((result) => {
       this.books = result;
     });
