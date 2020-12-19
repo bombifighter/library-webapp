@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   successMessage: string;
   invalidLogin = false;
   loginSuccess = false;
+  show: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +36,10 @@ export class LoginComponent implements OnInit {
       this.invalidLogin = true;
       this.loginSuccess = false;
     });
+  }
+
+  togglePassword() {
+    this.show = !this.show;
   }
 
 }

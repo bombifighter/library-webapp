@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 export class MembersComponent implements OnInit {
 
   members: Member[];
+  username: string = sessionStorage.getItem('authenticatedUser');
 
   constructor(private route: ActivatedRoute,
               private router: Router,

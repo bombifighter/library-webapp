@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 export class AddbookComponent implements OnInit {
 
   book = new Book();
+  username: string = sessionStorage.getItem('authenticatedUser');
 
   constructor(private addBookService: AddbookService,
               private router: Router,

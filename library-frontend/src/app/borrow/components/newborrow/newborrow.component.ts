@@ -21,6 +21,7 @@ export class NewborrowComponent implements OnInit {
   members: Member[] = [];
   selectedMember: string = null;
   selectedBook: string = null;
+  username: string = sessionStorage.getItem('authenticatedUser');
 
   constructor(private newBorrowService: NewborrowService,
               private router: Router,

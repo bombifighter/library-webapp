@@ -1,33 +1,38 @@
 <div *ngIf="loginService.isUserLoggedIn(); else elseBlock">
   <app-menu></app-menu>
-  <h2>Add Book</h2>
-  <div class="mycontainer">
-    <div class="input-group flex-nowrap">
-      <span class="input-group-text" id="addon-wrapping">ISBN</span>
-      <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="book.isbn">
-    </div>
-    <div class="input-group flex-nowrap">
-      <span class="input-group-text" id="addon-wrapping">Title</span>
-      <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="book.title">
-    </div>
-    <div class="input-group flex-nowrap">
-      <span class="input-group-text" id="addon-wrapping">Author</span>
-      <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="book.author">
-    </div>
-    <div class="input-group flex-nowrap">
-      <span class="input-group-text" id="addon-wrapping">Genre</span>
-      <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="book.genre">
-    </div>
-    <div class="input-group flex-nowrap">
-      <span class="input-group-text" id="addon-wrapping">Description</span>
-      <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="book.description">
-    </div>
-    <div class="input-group flex-nowrap">
-      <span class="input-group-text" id="addon-wrapping">Quantity</span>
-      <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="book.quantity">
-    </div>
-    <a (click)=handleSave() class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Save</a>
+  <div *ngIf="username != 'admin'; else havePermissionBlock">
+    <app-nopermission></app-nopermission>
   </div>
+  <ng-template #havePermissionBlock>
+    <h2>Add Book</h2>
+    <div class="mycontainer">
+      <div class="input-group flex-nowrap">
+        <span class="input-group-text" id="addon-wrapping">ISBN</span>
+        <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="book.isbn">
+      </div>
+      <div class="input-group flex-nowrap">
+        <span class="input-group-text" id="addon-wrapping">Title</span>
+        <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="book.title">
+      </div>
+      <div class="input-group flex-nowrap">
+        <span class="input-group-text" id="addon-wrapping">Author</span>
+        <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="book.author">
+      </div>
+      <div class="input-group flex-nowrap">
+        <span class="input-group-text" id="addon-wrapping">Genre</span>
+        <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="book.genre">
+      </div>
+      <div class="input-group flex-nowrap">
+        <span class="input-group-text" id="addon-wrapping">Description</span>
+        <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="book.description">
+      </div>
+      <div class="input-group flex-nowrap">
+        <span class="input-group-text" id="addon-wrapping">Quantity</span>
+        <input type="text" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="book.quantity">
+      </div>
+      <a (click)=handleSave() class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Save</a>
+    </div>
+  </ng-template>
 </div>
 <ng-template #elseBlock>
   <app-notloggedin></app-notloggedin>

@@ -19,3 +19,15 @@ h1 {
   width: auto;
   text-align: center;
 }
+
+.show:hover{
+  cursor: pointer;
+}
+
+.firstgroup {
+  margin-bottom: 2em;
+}
+
+.mylabel {
+  margin-left: 0.15em;
+}

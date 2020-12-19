@@ -16,6 +16,7 @@ export class AddmemberComponent implements OnInit {
   member = new Member();
   password: string = null;
   show: boolean = false;
+  username: string = sessionStorage.getItem('authenticatedUser');
 
   constructor(private addMemberService: AddmemberService,
               private router: Router,

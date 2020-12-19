@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 export class ModifybookComponent implements OnInit {
 
   book = new Book();
+  username: string = sessionStorage.getItem('authenticatedUser');
 
   constructor(private route: ActivatedRoute,
               private router: Router,

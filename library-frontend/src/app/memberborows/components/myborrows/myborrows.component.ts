@@ -14,6 +14,7 @@ export class MyborrowsComponent implements OnInit {
 
   borrows: Borrow[];
   books: Book[] = [];
+  username: string = sessionStorage.getItem('authenticatedUser');
 
   constructor(public loginService: LoginService,
               private myBorrowService: MyborrowsService,

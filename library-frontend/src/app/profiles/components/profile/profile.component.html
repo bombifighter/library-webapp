@@ -1,103 +1,108 @@
 <div *ngIf="loginService.isUserLoggedIn(); else elseBlock">
   <app-menu></app-menu>
-  <h2>Profile</h2>
-  <div *ngIf="member">
-    <div class="container bootstrap snippets bootdey">
-      <div class="panel-body inf-content">
-        <div class="row">
-          <div class="col-md-4 picturecontainer">
-            <img src="/assets/img/book.png" width="300">
-          </div>
-          <div class="col-md-6">
-            <h3>Information</h3>
-            <div class="table-responsive">
-              <table class="table table-user-information">
-                <tbody>
-                <tr>
-                  <td>
-                    <strong>
-                      <span class="glyphicon glyphicon-asterisk text-primary"></span>
-                      Id
-                    </strong>
-                  </td>
-                  <td>
-                    {{member.id}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>
-                      <span class="glyphicon glyphicon-user  text-primary"></span>
-                      Username
-                    </strong>
-                  </td>
-                  <td>
-                    {{member.username}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>
-                      <span class="glyphicon glyphicon-cloud text-primary"></span>
-                      Name
-                    </strong>
-                  </td>
-                  <td>
-                    {{member.name}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>
-                      <span class="glyphicon glyphicon-eye-open text-primary"></span>
-                      Address
-                    </strong>
-                  </td>
-                  <td>
-                    {{member.address}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>
-                      <span class="glyphicon glyphicon-envelope text-primary"></span>
-                      Email
-                    </strong>
-                  </td>
-                  <td>
-                    {{member.email}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>
-                      <span class="glyphicon glyphicon-calendar text-primary"></span>
-                      Birth Date
-                    </strong>
-                  </td>
-                  <td>
-                    {{member.dateOfBirth}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>
-                      <span class="glyphicon glyphicon-calendar text-primary"></span>
-                      Join Date
-                    </strong>
-                  </td>
-                  <td>
-                    {{member.joinDate}}
-                  </td>
-                </tr>
-                </tbody>
-              </table>
+  <div *ngIf="username == 'admin'; else havePermissionBlock">
+    <app-nopermission></app-nopermission>
+  </div>
+  <ng-template #havePermissionBlock>
+    <h2>Profile</h2>
+    <div *ngIf="member">
+      <div class="container bootstrap snippets bootdey">
+        <div class="panel-body inf-content">
+          <div class="row">
+            <div class="col-md-4 picturecontainer">
+              <img src="/assets/img/book.png" width="300">
+            </div>
+            <div class="col-md-6">
+              <h3>Information</h3>
+              <div class="table-responsive">
+                <table class="table table-user-information">
+                  <tbody>
+                  <tr>
+                    <td>
+                      <strong>
+                        <span class="glyphicon glyphicon-asterisk text-primary"></span>
+                        Id
+                      </strong>
+                    </td>
+                    <td>
+                      {{member.id}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>
+                        <span class="glyphicon glyphicon-user  text-primary"></span>
+                        Username
+                      </strong>
+                    </td>
+                    <td>
+                      {{member.username}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>
+                        <span class="glyphicon glyphicon-cloud text-primary"></span>
+                        Name
+                      </strong>
+                    </td>
+                    <td>
+                      {{member.name}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>
+                        <span class="glyphicon glyphicon-eye-open text-primary"></span>
+                        Address
+                      </strong>
+                    </td>
+                    <td>
+                      {{member.address}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>
+                        <span class="glyphicon glyphicon-envelope text-primary"></span>
+                        Email
+                      </strong>
+                    </td>
+                    <td>
+                      {{member.email}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>
+                        <span class="glyphicon glyphicon-calendar text-primary"></span>
+                        Birth Date
+                      </strong>
+                    </td>
+                    <td>
+                      {{member.dateOfBirth}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>
+                        <span class="glyphicon glyphicon-calendar text-primary"></span>
+                        Join Date
+                      </strong>
+                    </td>
+                    <td>
+                      {{member.joinDate}}
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </ng-template>
 </div>
 <ng-template #elseBlock>
   <app-notloggedin></app-notloggedin>

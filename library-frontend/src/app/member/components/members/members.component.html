@@ -1,46 +1,51 @@
 <div *ngIf="loginService.isUserLoggedIn(); else elseBlock">
   <app-menu></app-menu>
-  <h2>Members</h2>
-  <div *ngIf="members">
-    <div class="add-button">
-      <a href="addmember" class="btn btn-warning btn-lg active abutton" role="button" aria-pressed="true">&#43; Add Member</a>
-    </div>
-    <div *ngIf="members.length == 0; else elseBlockinner">
-      <div class="nodata">
-        <a>There are no members in the database.</a>
-      </div>
-    </div>
-    <ng-template #elseBlockinner>
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th scope="col">Member ID</th>
-          <th scope="col">Username</th>
-          <th scope="col">Name</th>
-          <th scope="col">Birthdate</th>
-          <th scope="col">Address</th>
-          <th scope="col">Email</th>
-          <th scope="col">Join Date</th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let member of members">
-          <th scope="row">{{member.id}}</th>
-          <td>{{member.username}}</td>
-          <td>{{member.name}}</td>
-          <td>{{member.dateOfBirth}}</td>
-          <td>{{member.address}}</td>
-          <td>{{member.email}}</td>
-          <td>{{member.joinDate}}</td>
-          <td class="modify"><a href="modifymember/{{member.id}}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Modify</a></td>
-          <td class="delete"><a (click)=requestConfirm(member.id) class="btn btn-danger btn-sm active" role="button" aria-pressed="true">Delete</a></td>
-        </tr>
-        </tbody>
-      </table>
-    </ng-template>
+  <div *ngIf="username != 'admin'; else havePermissionBlock">
+    <app-nopermission></app-nopermission>
   </div>
+  <ng-template #havePermissionBlock>
+    <h2>Members</h2>
+    <div *ngIf="members">
+      <div class="add-button">
+        <a href="addmember" class="btn btn-warning btn-lg active abutton" role="button" aria-pressed="true">&#43; Add Member</a>
+      </div>
+      <div *ngIf="members.length == 0; else elseBlockinner">
+        <div class="nodata">
+          <a>There are no members in the database.</a>
+        </div>
+      </div>
+      <ng-template #elseBlockinner>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col">Member ID</th>
+            <th scope="col">Username</th>
+            <th scope="col">Name</th>
+            <th scope="col">Birthdate</th>
+            <th scope="col">Address</th>
+            <th scope="col">Email</th>
+            <th scope="col">Join Date</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let member of members">
+            <th scope="row">{{member.id}}</th>
+            <td>{{member.username}}</td>
+            <td>{{member.name}}</td>
+            <td>{{member.dateOfBirth}}</td>
+            <td>{{member.address}}</td>
+            <td>{{member.email}}</td>
+            <td>{{member.joinDate}}</td>
+            <td class="modify"><a href="modifymember/{{member.id}}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Modify</a></td>
+            <td class="delete"><a (click)=requestConfirm(member.id) class="btn btn-danger btn-sm active" role="button" aria-pressed="true">Delete</a></td>
+          </tr>
+          </tbody>
+        </table>
+      </ng-template>
+    </div>
+  </ng-template>
 </div>
 <ng-template #elseBlock>
   <app-notloggedin></app-notloggedin>

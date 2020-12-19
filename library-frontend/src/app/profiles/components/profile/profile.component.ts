@@ -12,6 +12,7 @@ import {Member} from "../../../member/components/members/member";
 export class ProfileComponent implements OnInit {
 
   member: Member = null;
+  username: string = sessionStorage.getItem('authenticatedUser');
 
   constructor(public loginService: LoginService,
               private profileService: ProfileService) { }

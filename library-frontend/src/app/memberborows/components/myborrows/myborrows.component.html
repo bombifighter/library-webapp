@@ -1,43 +1,48 @@
 <div *ngIf="loginService.isUserLoggedIn(); else elseBlock">
   <app-menu></app-menu>
-  <h2>My Borrows</h2>
-  <div *ngIf="borrows && books.length == borrows.length">
-    <div *ngIf="borrows.length == 0; else elseBlockinner">
-      <div class="nodata">
-        <a>There are no borrows in the database.</a>
-      </div>
-    </div>
-    <ng-template #elseBlockinner>
-      <div class="userTableContainer">
-        <table class="table table-striped userTable">
-          <thead>
-          <tr>
-            <th scope="col">Borrow ID</th>
-            <th scope="col">Book ID</th>
-            <th scope="col">Book Title</th>
-            <th scope="col">Date</th>
-            <th scope="col" class="enddate">End Date</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let item of [].constructor(borrows.length); let i = index">
-            <th scope="row">{{borrows[i].id}}</th>
-            <td>{{borrows[i].bookId}}</td>
-            <td>{{books[i].title}}</td>
-            <td>{{borrows[i].date}}</td>
-            <td class="overdue enddate" *ngIf="isOverdue(borrows[i].endDate)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 5zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-              </svg>
-              {{borrows[i].endDate}}
-            </td>
-            <td class="enddate" *ngIf="!isOverdue(borrows[i].endDate)">{{borrows[i].endDate}}</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </ng-template>
+  <div *ngIf="username == 'admin'; else havePermissionBlock">
+    <app-nopermission></app-nopermission>
   </div>
+  <ng-template #havePermissionBlock>
+    <h2>My Borrows</h2>
+    <div *ngIf="borrows && books.length == borrows.length">
+      <div *ngIf="borrows.length == 0; else elseBlockinner">
+        <div class="nodata">
+          <a>There are no borrows in the database.</a>
+        </div>
+      </div>
+      <ng-template #elseBlockinner>
+        <div class="userTableContainer">
+          <table class="table table-striped userTable">
+            <thead>
+            <tr>
+              <th scope="col">Borrow ID</th>
+              <th scope="col">Book ID</th>
+              <th scope="col">Book Title</th>
+              <th scope="col">Date</th>
+              <th scope="col" class="enddate">End Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of [].constructor(borrows.length); let i = index">
+              <th scope="row">{{borrows[i].id}}</th>
+              <td>{{borrows[i].bookId}}</td>
+              <td>{{books[i].title}}</td>
+              <td>{{borrows[i].date}}</td>
+              <td class="overdue enddate" *ngIf="isOverdue(borrows[i].endDate)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 5zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                </svg>
+                {{borrows[i].endDate}}
+              </td>
+              <td class="enddate" *ngIf="!isOverdue(borrows[i].endDate)">{{borrows[i].endDate}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-template>
+    </div>
+  </ng-template>
 </div>
 <ng-template #elseBlock>
   <app-notloggedin></app-notloggedin>
