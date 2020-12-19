@@ -1,0 +1,28 @@
+h2 {
+  text-align: center;
+  padding: 1em;
+  font-size: 4em;
+}
+
+.userTable {
+  width: 95%;
+}
+
+.userTableContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.overdue {
+  color: red;
+}
+
+svg {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.enddate {
+  text-align: right;
+}

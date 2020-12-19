@@ -18,6 +18,8 @@ import { AddmemberComponent } from './member/components/addmember/addmember.comp
 import { ModifymemberComponent } from './member/components/modifymember/modifymember.component';
 import { BorrowsComponent } from './borrow/components/borrows/borrows.component';
 import { NewborrowComponent } from './borrow/components/newborrow/newborrow.component';
+import { ProfileComponent } from './profiles/components/profile/profile.component';
+import { MyborrowsComponent } from './memberborows/components/myborrows/myborrows.component';
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import { NewborrowComponent } from './borrow/components/newborrow/newborrow.comp
     AddmemberComponent,
     ModifymemberComponent,
     BorrowsComponent,
-    NewborrowComponent
+    NewborrowComponent,
+    ProfileComponent,
+    MyborrowsComponent
   ],
   imports: [
     BrowserModule,

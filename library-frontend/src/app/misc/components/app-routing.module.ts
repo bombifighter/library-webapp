@@ -10,11 +10,15 @@ import {AddmemberComponent} from "../../member/components/addmember/addmember.co
 import {ModifymemberComponent} from "../../member/components/modifymember/modifymember.component";
 import {BorrowsComponent} from "../../borrow/components/borrows/borrows.component";
 import {NewborrowComponent} from "../../borrow/components/newborrow/newborrow.component";
+import {ProfileComponent} from "../../profiles/components/profile/profile.component";
+import {MyborrowsComponent} from "../../memberborows/components/myborrows/myborrows.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'books', component: BooksComponent },
   { path: '', component: LoginComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'myborrows', component: MyborrowsComponent },
   { path: 'landingpage', component: LandingpageComponent },
   { path: 'modifybook/:id', component: ModifybookComponent },
   { path: 'addbook', component: AddbookComponent },

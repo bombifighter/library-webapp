@@ -2,8 +2,10 @@ package com.botond.librarybackend.service;
 
 import com.botond.librarybackend.entity.Book;
 import com.botond.librarybackend.entity.Borrow;
+import com.botond.librarybackend.entity.Member;
 import com.botond.librarybackend.error.BorrowNotAvailableException;
 import com.botond.librarybackend.error.BorrowNotFoundException;
+import com.botond.librarybackend.error.MemberNotFoundException;
 import com.botond.librarybackend.repository.BookRepository;
 import com.botond.librarybackend.repository.BorrowRepository;
 import com.botond.librarybackend.repository.MemberRepository;
@@ -40,6 +42,27 @@ public class BorrowService {
 
     public List<Borrow> getAllBorrows() {
         return new ArrayList<>(borrowRepository.findAll());
+    }
+
+    public List<Borrow> getMemberBorrowsByName(String username) {
+        Long id = null;
+        List<Member> members = memberRepository.findAll();
+        for (Member member : members) {
+            if(member.getUsername().equals(username)) {
+                id = member.getId();
+            }
+        }
+        if(id == null) {
+            throw new MemberNotFoundException(username);
+        }
+        List<Borrow> memberBorrows = new ArrayList<>();
+        List<Borrow> borrows = borrowRepository.findAll();
+        for (Borrow borrow : borrows) {
+            if(borrow.getUserId().equals(id)) {
+                memberBorrows.add(borrow);
+            }
+        }
+        return memberBorrows;
     }
 
     public void newBorrow(Borrow newBorrow) {

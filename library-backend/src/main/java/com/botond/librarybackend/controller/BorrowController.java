@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -35,5 +37,11 @@ public class BorrowController {
     @PatchMapping("/extendBorrow/{id}")
     void extendBorrow(@PathVariable Long id) {
         borrowService.extendBorrow(id);
+    }
+
+    @GetMapping("/myborrows")
+    List<Borrow> getMyBorrows(HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        return borrowService.getMemberBorrowsByName(principal.getName());
     }
 }

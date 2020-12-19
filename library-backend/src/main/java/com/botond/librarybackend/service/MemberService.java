@@ -1,9 +1,6 @@
 package com.botond.librarybackend.service;
 
-import com.botond.librarybackend.entity.Book;
-import com.botond.librarybackend.entity.Borrow;
-import com.botond.librarybackend.entity.Credential;
-import com.botond.librarybackend.entity.Member;
+import com.botond.librarybackend.entity.*;
 import com.botond.librarybackend.error.BookNotFoundException;
 import com.botond.librarybackend.error.MemberAlreadyExistsException;
 import com.botond.librarybackend.error.MemberNotFoundException;
@@ -52,6 +49,16 @@ public class MemberService {
     public Member getMemberById(Long Id) {
         return memberRepository.findById(Id)
                 .orElseThrow(() -> new MemberNotFoundException(Id));
+    }
+
+    public Member getMemberDataByName(String username) {
+        List<Member> members = memberRepository.findAll();
+        for (Member member : members) {
+            if(member.getUsername().equals(username)) {
+                return member;
+            }
+        }
+        throw new MemberNotFoundException(username);
     }
 
     public void addMember(Member newMember, String password) {
