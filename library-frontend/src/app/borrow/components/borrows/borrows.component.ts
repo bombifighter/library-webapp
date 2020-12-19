@@ -20,6 +20,8 @@ export class BorrowsComponent implements OnInit {
   borrows: Borrow[];
   members: Member[] = [];
   books: Book[] = [];
+  loadDone: boolean = false;
+  loadDone2: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -35,9 +37,11 @@ export class BorrowsComponent implements OnInit {
       for(let borrow of this.borrows) {
         this.membersService.memberById(borrow.userId).subscribe((result) => {
           this.members.push(result);
+          this.loadDone = true;
         });
         this.booksService.bookById(borrow.bookId).subscribe((result) => {
           this.books.push(result);
+          this.loadDone2 = true;
         });
       }
     });

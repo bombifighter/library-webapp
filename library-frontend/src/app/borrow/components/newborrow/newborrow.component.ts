@@ -45,7 +45,6 @@ export class NewborrowComponent implements OnInit {
         text: 'Empty fields not allowed'
       });
     }
-    console.log(this.selectedMember)
     this.borrow.userId = this.extractID(this.selectedMember);
     if(isNaN(this.borrow.userId)) {
       return Swal.fire({

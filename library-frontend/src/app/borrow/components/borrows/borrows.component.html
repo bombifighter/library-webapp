@@ -1,52 +1,54 @@
 <div *ngIf="loginService.isUserLoggedIn(); else elseBlock">
   <app-menu></app-menu>
   <h2>Borrows</h2>
-  <div *ngIf="borrows && members.length != 0 && books.length != 0">
+  <div *ngIf="borrows">
     <div class="add-button">
-      <a href="newborrow" class="btn btn-warning btn-lg active abutton" role="button" aria-pressed="true">&#43; New Borrow</a>
-    </div>
-    <div *ngIf="borrows.length == 0; else elseBlockinner">
-      <div class="nodata">
-        <a>There are no borrows in the database.</a>
+        <a href="newborrow" class="btn btn-warning btn-lg active abutton" role="button" aria-pressed="true">&#43; New Borrow</a>
       </div>
+    <div *ngIf="loadDone && loadDone2">
+      <div *ngIf="borrows.length == 0; else elseBlockinner">
+        <div class="nodata">
+          <a>There are no borrows in the database.</a>
+        </div>
+      </div>
+      <ng-template #elseBlockinner>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col">Borrow ID</th>
+            <th scope="col">Member ID</th>
+            <th scope="col">Member Name</th>
+            <th scope="col">Book ID</th>
+            <th scope="col">Book Title</th>
+            <th scope="col">Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of [].constructor(borrows.length); let i = index">
+            <th scope="row">{{borrows[i].id}}</th>
+            <td>{{borrows[i].userId}}</td>
+            <td>{{members[i].name}}</td>
+            <td>{{borrows[i].bookId}}</td>
+            <td>{{books[i].title}}</td>
+            <td>{{borrows[i].date}}</td>
+            <td class="overdue" *ngIf="isOverdue(borrows[i].endDate)">
+              {{borrows[i].endDate}}
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 5zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+              </svg>
+            </td>
+            <td *ngIf="!isOverdue(borrows[i].endDate)">{{borrows[i].endDate}}</td>
+            <td class="extend"><a (click)=requestConfirmExtend(borrows[i].id) class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Extend by 30 days</a></td>
+            <td class="delete"><a (click)=requestConfirmDelete(borrows[i].id) class="btn btn-danger btn-sm active" role="button" aria-pressed="true">Delete</a></td>
+          </tr>
+          </tbody>
+        </table>
+      </ng-template>
     </div>
-    <ng-template #elseBlockinner>
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th scope="col">Borrow ID</th>
-          <th scope="col">Member ID</th>
-          <th scope="col">Member Name</th>
-          <th scope="col">Book ID</th>
-          <th scope="col">Book Title</th>
-          <th scope="col">Date</th>
-          <th scope="col">End Date</th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let item of [].constructor(borrows.length); let i = index">
-          <th scope="row">{{borrows[i].id}}</th>
-          <td>{{borrows[i].userId}}</td>
-          <td>{{members[i].name}}</td>
-          <td>{{borrows[i].bookId}}</td>
-          <td>{{books[i].title}}</td>
-          <td>{{borrows[i].date}}</td>
-          <td class="overdue" *ngIf="isOverdue(borrows[i].endDate)">
-            {{borrows[i].endDate}}
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 5zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-            </svg>
-          </td>
-          <td *ngIf="!isOverdue(borrows[i].endDate)">{{borrows[i].endDate}}</td>
-          <td class="extend"><a (click)=requestConfirmExtend(borrows[i].id) class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Extend by 30 days</a></td>
-          <td class="delete"><a (click)=requestConfirmDelete(borrows[i].id) class="btn btn-danger btn-sm active" role="button" aria-pressed="true">Delete</a></td>
-        </tr>
-        </tbody>
-      </table>
-    </ng-template>
-  </div>
+    </div>
 </div>
 <ng-template #elseBlock>
   <app-notloggedin></app-notloggedin>
