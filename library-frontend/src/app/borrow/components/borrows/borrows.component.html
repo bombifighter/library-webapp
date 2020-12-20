@@ -33,9 +33,9 @@
             <tr *ngFor="let item of [].constructor(borrows.length); let i = index">
               <th scope="row">{{borrows[i].id}}</th>
               <td>{{borrows[i].userId}}</td>
-              <td>{{members[i].name}}</td>
+              <td>{{namesInOrder[i]}}</td>
               <td>{{borrows[i].bookId}}</td>
-              <td>{{books[i].title}}</td>
+              <td>{{titlesInOrder[i]}}</td>
               <td>{{borrows[i].date}}</td>
               <td class="overdue" *ngIf="isOverdue(borrows[i].endDate)">
                 {{borrows[i].endDate}}

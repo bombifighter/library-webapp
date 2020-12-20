@@ -20,6 +20,8 @@ export class BorrowsComponent implements OnInit {
   borrows: Borrow[];
   members: Member[] = [];
   books: Book[] = [];
+  namesInOrder: string[] = [];
+  titlesInOrder: string[] = [];
   username: string = sessionStorage.getItem('authenticatedUser');
 
   constructor(private route: ActivatedRoute,
@@ -33,14 +35,25 @@ export class BorrowsComponent implements OnInit {
   ngOnInit(): void {
     this.borrowsService.borrowService().subscribe((result) => {
       this.borrows = result;
-      for(let borrow of this.borrows) {
-        this.membersService.memberById(borrow.userId).subscribe((result) => {
-          this.members.push(result);
-        });
-        this.booksService.bookById(borrow.bookId).subscribe((result) => {
-          this.books.push(result);
-        });
-      }
+      this.membersService.memberService().subscribe((result) => {
+          this.members = result;
+          this.booksService.bookService().subscribe((result) => {
+            this.books = result;
+            for(let borrow of this.borrows){
+              for(let member of this.members) {
+                if(borrow.userId == member.id) {
+                  this.namesInOrder.push(member.name);
+                  break;
+                }
+              }
+              for(let book of this.books) {
+                if(borrow.bookId == book.id) {
+                  this.titlesInOrder.push(book.title);
+                }
+              }
+            }
+          })
+      });
     });
   }
 
