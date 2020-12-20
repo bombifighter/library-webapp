@@ -101,10 +101,12 @@ public class MemberService {
     public void updateMember(Long Id, Member updatedMember) {
         memberRepository.findById(Id)
                 .map(x -> {
-                    List<Member> members = getAllMember();
-                    for(Member member : members) {
-                        if(member.getUsername().equals(updatedMember.getUsername()) && x.getId() != updatedMember.getId()) {
-                            throw new UserNameNotUniqueException(updatedMember.getUsername());
+                    if(!x.getUsername().equals(updatedMember.getUsername())) {
+                        List<Member> members = getAllMember();
+                        for(Member member : members) {
+                            if(member.getUsername().equals(updatedMember.getUsername())) {
+                                throw new UserNameNotUniqueException(updatedMember.getUsername());
+                            }
                         }
                     }
                     x.setUsername(updatedMember.getUsername());
