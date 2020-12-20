@@ -105,8 +105,8 @@ public class DBInit implements CommandLineRunner {
        Borrow borrow2 = new Borrow();
        borrow2.setUserId(1L);
        borrow2.setBookId(2L);
-       borrow2.setDate("2020-01-01");
-       borrow2.setEndDate("2020-01-31");
+       borrow2.setDate("2020-11-01");
+       borrow2.setEndDate("2020-12-01");
        this.borrowRepository.save(borrow2);
 
        Credential credential = new Credential();
