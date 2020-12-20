@@ -26,6 +26,9 @@ export class AddmemberComponent implements OnInit {
   }
 
   handleSave() {
+    if(this.member.username == null) {
+      this.member.username = "";
+    }
     this.addMemberService.saveMember(this.member, this.password).subscribe(() => {
       Swal.fire(
         'Added!',
@@ -56,6 +59,15 @@ export class AddmemberComponent implements OnInit {
             icon: 'error',
             title: 'Oops...',
             text: "Username 'admin' is not available!"
+          });
+          break;
+        }
+        case 405: {
+          console.log(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Username already exists!"
           });
           break;
         }

@@ -74,11 +74,20 @@ export class ModifymemberComponent implements OnInit {
           });
           break;
         }
+        case 405: {
+          console.log(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Username already exists!"
+          });
+          break;
+        }
         default:{
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Username already exists.'
+            text: 'Something went wrong.'
           });
         }
       }

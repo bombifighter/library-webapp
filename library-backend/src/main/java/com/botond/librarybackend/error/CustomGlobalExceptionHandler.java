@@ -60,4 +60,9 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     public void springHandleNotUniqueUsername(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.METHOD_NOT_ALLOWED.value());
     }
+
+    @ExceptionHandler(InvalidUsernameException.class)
+    public void springHandleInvalidUsername(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.METHOD_NOT_ALLOWED.value());
+    }
 }

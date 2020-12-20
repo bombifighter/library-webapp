@@ -35,7 +35,10 @@ export class ModifymemberService {
     if(member.username == "admin") {
       return this.handleErrorUsernameUnavailable(Error);
     }
-    return this.http.put<Member>("http://localhost:8080/api/members/update/" + member.id, member);
+    return this.http.put<Member>("http://localhost:8080/api/members/update/" + member.id, member)
+      .pipe(catchError(err => {
+        return this.handleUsernameError(err.status);
+      }));
   }
 
   savePassword(id: number, password: string) {
@@ -52,7 +55,8 @@ export class ModifymemberService {
 
   isThereEmptyField(member: Member) {
     return member.name === null || member.email === null || member.address === null || member.dateOfBirth === null
-      || member.name == "" || member.email == "" || member.address == "" || member.dateOfBirth == "";
+      || member.name == "" || member.email == "" || member.address == "" || member.dateOfBirth == ""
+      || member.username === null || member.username == "";
   }
 
   isValidEmail(email: string) {
@@ -81,5 +85,10 @@ export class ModifymemberService {
   handleErrorUsernameUnavailable(error) {
     let errorMessage = "unavailableUsernameError"
     return throwError(errorMessage);
+  }
+
+  handleUsernameError(error) {
+    let errorMessage = "usernameAlreadyExistsError";
+    return throwError(error);
   }
 }

@@ -1,6 +1,7 @@
 package com.botond.librarybackend.service;
 
 import com.botond.librarybackend.entity.*;
+import com.botond.librarybackend.error.InvalidUsernameException;
 import com.botond.librarybackend.error.MemberNotFoundException;
 import com.botond.librarybackend.error.UserNameNotUniqueException;
 import com.botond.librarybackend.repository.MemberRepository;
@@ -56,6 +57,9 @@ public class MemberService {
     }
 
     public void addMember(Member newMember, String password) {
+        if(newMember.getUsername().equals("")) {
+            throw new InvalidUsernameException(newMember.getUsername());
+        }
         List<Member> members = getAllMember();
         for(Member member : members) {
             if(member.getUsername().equals(newMember.getUsername())) {
@@ -94,14 +98,20 @@ public class MemberService {
         throw new MemberNotFoundException(Id);
     }
 
-    public void updateMember(Long Id, Member member) {
+    public void updateMember(Long Id, Member updatedMember) {
         memberRepository.findById(Id)
                 .map(x -> {
-                    x.setUsername(member.getUsername());
-                    x.setName(member.getName());
-                    x.setAddress(member.getAddress());
-                    x.setEmail(member.getEmail());
-                    x.setDateOfBirth(member.getDateOfBirth());
+                    List<Member> members = getAllMember();
+                    for(Member member : members) {
+                        if(member.getUsername().equals(updatedMember.getUsername()) && x.getId() != updatedMember.getId()) {
+                            throw new UserNameNotUniqueException(updatedMember.getUsername());
+                        }
+                    }
+                    x.setUsername(updatedMember.getUsername());
+                    x.setName(updatedMember.getName());
+                    x.setAddress(updatedMember.getAddress());
+                    x.setEmail(updatedMember.getEmail());
+                    x.setDateOfBirth(updatedMember.getDateOfBirth());
                     return memberRepository.save(x);
                 })
                 .orElseThrow(() -> new MemberNotFoundException(Id));
