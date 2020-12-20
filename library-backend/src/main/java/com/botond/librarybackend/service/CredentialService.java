@@ -49,8 +49,11 @@ public class CredentialService {
                     return credentialRepository.save(x);
                 })
                 .orElseThrow(() -> new CredentialNotFoundException(userId));
-        User user = userRepository.findByUsername(memberService.getMemberById(userId).getUsername()).get();
-        user.setPassword(passwordEncoder.encode(password));
+        userRepository.findByUsername(memberService.getMemberById(userId).getUsername())
+                .map(x -> {
+                    x.setPassword(passwordEncoder.encode(password));
+                    return userRepository.save(x);
+                });
     }
 
 }
