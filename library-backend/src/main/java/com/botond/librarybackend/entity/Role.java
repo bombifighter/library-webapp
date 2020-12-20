@@ -1,4 +1,4 @@
-package com.botond.librarybackend.security;
+package com.botond.librarybackend.entity;
 
 public enum Role {
     ROLE_USER,

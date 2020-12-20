@@ -1,15 +1,12 @@
 package com.botond.librarybackend.service;
 
 import com.botond.librarybackend.entity.*;
-import com.botond.librarybackend.error.BookNotFoundException;
-import com.botond.librarybackend.error.MemberAlreadyExistsException;
 import com.botond.librarybackend.error.MemberNotFoundException;
 import com.botond.librarybackend.error.UserNameNotUniqueException;
 import com.botond.librarybackend.repository.MemberRepository;
-import com.botond.librarybackend.security.Role;
-import com.botond.librarybackend.security.User;
-import com.botond.librarybackend.security.UserRepository;
-import com.botond.librarybackend.security.UserService;
+import com.botond.librarybackend.entity.Role;
+import com.botond.librarybackend.entity.User;
+import com.botond.librarybackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,9 +32,6 @@ public class MemberService {
 
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
-    UserService userService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;

@@ -3,6 +3,7 @@ package com.botond.librarybackend.service;
 import com.botond.librarybackend.entity.Book;
 import com.botond.librarybackend.entity.Borrow;
 import com.botond.librarybackend.entity.Member;
+import com.botond.librarybackend.error.BookNotFoundException;
 import com.botond.librarybackend.error.BorrowNotAvailableException;
 import com.botond.librarybackend.error.BorrowNotFoundException;
 import com.botond.librarybackend.error.MemberNotFoundException;
@@ -37,9 +38,6 @@ public class BorrowService {
     @Autowired
     MemberRepository memberRepository;
 
-    @Autowired
-    MemberService memberService;
-
     public List<Borrow> getAllBorrows() {
         return new ArrayList<>(borrowRepository.findAll());
     }
@@ -66,8 +64,10 @@ public class BorrowService {
     }
 
     public void newBorrow(Borrow newBorrow) {
-        memberService.getMemberById(newBorrow.getUserId());
-        Book book = bookService.getBookById(newBorrow.getBookId());
+        memberRepository.findById(newBorrow.getUserId())
+                .orElseThrow(() -> new MemberNotFoundException(newBorrow.getUserId()));
+        Book book = bookRepository.findById(newBorrow.getBookId())
+                .orElseThrow(() -> new BookNotFoundException(newBorrow.getBookId()));
         if(book.getQuantity().equals(0L)) {
             throw new BorrowNotAvailableException(book.getTitle());
         }

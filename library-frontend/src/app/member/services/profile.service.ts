@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Member} from "../../member/components/members/member";
+import {Member} from "../components/members/member";
 import {catchError} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
-import {CredWrapper} from "../../member/components/members/CredWrapper";
+import {CredWrapper} from "../components/members/CredWrapper";
 
 @Injectable({
   providedIn: 'root'

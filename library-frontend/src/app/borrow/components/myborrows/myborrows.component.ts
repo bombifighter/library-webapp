@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Borrow} from "../../../borrow/components/borrows/borrow";
+import {Borrow} from "../borrows/borrow";
 import {LoginService} from "../../../auth/services/login.service";
 import {MyborrowsService} from "../../services/myborrows.service";
 import {Book} from "../../../book/components/books/book";

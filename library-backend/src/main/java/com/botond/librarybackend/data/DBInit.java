@@ -1,14 +1,12 @@
-package com.botond.librarybackend.security;
+package com.botond.librarybackend.data;
 
 import com.botond.librarybackend.entity.Book;
 import com.botond.librarybackend.entity.Borrow;
 import com.botond.librarybackend.entity.Credential;
 import com.botond.librarybackend.entity.Member;
-import com.botond.librarybackend.repository.BookRepository;
-import com.botond.librarybackend.repository.BorrowRepository;
-import com.botond.librarybackend.repository.CredentialRepository;
-import com.botond.librarybackend.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.botond.librarybackend.repository.*;
+import com.botond.librarybackend.entity.Role;
+import com.botond.librarybackend.entity.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

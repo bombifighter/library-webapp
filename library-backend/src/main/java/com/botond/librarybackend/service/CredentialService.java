@@ -1,21 +1,13 @@
 package com.botond.librarybackend.service;
 
-import com.botond.librarybackend.entity.Borrow;
 import com.botond.librarybackend.entity.Credential;
-import com.botond.librarybackend.entity.Member;
 import com.botond.librarybackend.error.CredentialNotFoundException;
-import com.botond.librarybackend.error.MemberAlreadyExistsException;
-import com.botond.librarybackend.error.MemberNotFoundException;
 import com.botond.librarybackend.repository.CredentialRepository;
-import com.botond.librarybackend.security.User;
-import com.botond.librarybackend.security.UserRepository;
+import com.botond.librarybackend.entity.User;
+import com.botond.librarybackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 @Service
 public class CredentialService {

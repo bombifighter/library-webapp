@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Member} from "../../member/components/members/member";
-import {Borrow} from "../../borrow/components/borrows/borrow";
+import {Borrow} from "../components/borrows/borrow";
 
 @Injectable({
   providedIn: 'root'

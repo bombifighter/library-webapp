@@ -18,8 +18,8 @@ import { AddmemberComponent } from './member/components/addmember/addmember.comp
 import { ModifymemberComponent } from './member/components/modifymember/modifymember.component';
 import { BorrowsComponent } from './borrow/components/borrows/borrows.component';
 import { NewborrowComponent } from './borrow/components/newborrow/newborrow.component';
-import { ProfileComponent } from './profiles/components/profile/profile.component';
-import { MyborrowsComponent } from './memberborows/components/myborrows/myborrows.component';
+import { ProfileComponent } from './member/components/profile/profile.component';
+import { MyborrowsComponent } from './borrow/components/myborrows/myborrows.component';
 import { NopermissionComponent } from './misc/components/nopermission/nopermission.component';
 
 
